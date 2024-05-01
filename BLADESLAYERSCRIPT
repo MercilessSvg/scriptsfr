@@ -89,7 +89,7 @@ if game.PlaceId == 15744137588 then
     })
 
     ScriptsTab:AddToggle({
-        Name = "Tora Scripts",
+        Name = "Kill Aura",
         Callback = function(state)
             if state then
                 getgenv().Settings.AutoFarm = not getgenv().Settings.AutoFarm
