@@ -1,7 +1,4 @@
--- Checking if the PlaceId condition is satisfied
-if game.PlaceId == 15744137588 then
-
-    -- Loading the OrionLib library
+-- Loading the OrionLib library
     local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
     if not OrionLib then
         error("Failed to load the OrionLib library")
@@ -721,15 +718,15 @@ spawn(function()
             for _, v in pairs(game.Workspace.Golds:GetChildren()) do
                 v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
             end
-            for i = 10008, 10016 do
-    if getgenv().Settings.AutoBuyGems[i] then
-        local args = {
-            [1] = i
-        }
-
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
-    end
-end
+            for i = 10008 do
+    if getgenv().Settings.AutoBuyGems[10010] then
+                local args = {
+                    [1] = 10010
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
+            end
+        end
+    end)
 
 
 -- Refresh Pets Inventory
