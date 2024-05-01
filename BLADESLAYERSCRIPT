@@ -718,7 +718,6 @@ spawn(function()
             for _, v in pairs(game.Workspace.Golds:GetChildren()) do
                 v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
             end
-            for i = 10008 do
     if getgenv().Settings.AutoBuyGems[10008] then
                 local args = {
                     [1] = 10008
@@ -727,7 +726,6 @@ spawn(function()
             end
         end
     end)
-	for i = 10009 do
     if getgenv().Settings.AutoBuyGems[10009] then
                 local args = {
                     [1] = 10009
@@ -736,7 +734,6 @@ spawn(function()
             end
         end
     end)
-	 for i = 10010 do
     if getgenv().Settings.AutoBuyGems[10010] then
                 local args = {
                     [1] = 10010
@@ -745,7 +742,6 @@ spawn(function()
             end
         end
     end)
-	for i = 10011 do
     if getgenv().Settings.AutoBuyGems[10011] then
                 local args = {
                     [1] = 10011
@@ -754,7 +750,6 @@ spawn(function()
             end
         end
     end)	
-	for i = 10012 do
     if getgenv().Settings.AutoBuyGems[10012] then
                 local args = {
                     [1] = 10012
@@ -763,7 +758,6 @@ spawn(function()
             end
         end
     end)
-	for i = 10013 do
     if getgenv().Settings.AutoBuyGems[10013] then
                 local args = {
                     [1] = 10013
@@ -772,7 +766,6 @@ spawn(function()
             end
         end
     end)	
-	for i = 10014 do
     if getgenv().Settings.AutoBuyGems[10014] then
                 local args = {
                     [1] = 10014
@@ -781,7 +774,6 @@ spawn(function()
             end
         end
     end)
-	for i = 10015 do
     if getgenv().Settings.AutoBuyGems[10015] then
                 local args = {
                     [1] = 10015
@@ -790,7 +782,6 @@ spawn(function()
             end
         end
     end)	
-	for i = 10016 do
     if getgenv().Settings.AutoBuyGems[10016] then
                 local args = {
                     [1] = 10016
