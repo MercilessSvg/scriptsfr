@@ -33,17 +33,31 @@ getgenv().Settings = {
          },
 	mespetsequiper = {},
 	Range = 200,
+	AutoFarm = true,
 	WalkToEnemy = false,
 	DamageBoost = true,
 	DamageNumber = 0.99,
-	AutoFarm = false 
     }
 
+-- Anti AFK #1
+spawn(function()
+for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do
+v:Disable()
+end
+end)
 
+-- Anti AFK #2
+spawn(function()
+while wait(15) do
+local VirtualUser=game:service'VirtualUser'
+VirtualUser:CaptureController()
+VirtualUser:ClickButton2(Vector2.new())
+end
+end)
   
     -- Auto-attack function
     local function AutoAtk()
-        while G.AutoAtk do
+        while getgenv().Settings.AutoAtk do
             -- Call the auto-attack event
             game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 75
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlayerClickAttack"):FireServer()
@@ -76,90 +90,12 @@ ScriptsTab:AddToggle({
     Name = "Tora Scripts",
     Callback = function(state)
         if state then
-            getgenv().Settings.AutoFarm
-            spawn(function()
-                while wait(1) do
-                    for _, v in pairs(game.Workspace.Golds:GetChildren()) do
-                        v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-                    end
-                end
-            end)
-
-            local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
-            pcall(function()
-                for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
-                    if v.isEquip == true then
-                        table.insert(getgenv().Settings.mespetsequiper, v.guid)
-                    end
-                end
-            end)
-
-            spawn(function()
-                local function getNearestChest()
-                    local nearest, dist = nil, getgenv().Settings.Range
-                    local Players = game.Players
-                    local localPlayer = Players.LocalPlayer
-                    local localCharacter = localPlayer.Character
-                    local humanoidRootPart = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart")
-                    if not humanoidRootPart then return end
-
-                    for _, enemy in pairs(Workspace.Enemys:GetChildren()) do
-                        if enemy:FindFirstChild("HumanoidRootPart") and enemy.HumanoidRootPart:FindFirstChild("EnemyNameGui") and enemy.HumanoidRootPart.EnemyNameGui.HealthNum.Text ~= "0" then
-                            local distance = (humanoidRootPart.Position - enemy.HumanoidRootPart.Position).magnitude
-                            if distance < dist then
-                                dist = distance
-                                nearest = enemy
-                            end
-                        end
-                    end
-                    return nearest
-                end
-
-                while task.wait() do
-                    if getgenv().Settings.AutoFarm then
-                        local nearestEnemy = getNearestChest()
-
-                        if nearestEnemy then
-                            spawn(function()
-                                if getgenv().Settings.WalkToEnemy then
-                                    if nearestEnemy:FindFirstChild("HumanoidRootPart") then
-                                        player.Character.Humanoid:MoveTo(nearestEnemy.HumanoidRootPart.Position)
-                                    end
-                                end
-                            end)
-
-                            spawn(function()
-                                local args = { nearestEnemy:GetAttribute("EnemyGuid") }
-                                game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args))
-                                game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args))
-                            end)
-
-                            if getgenv().Settings.DamageBoost then
-                                for c, d in pairs(getgenv().Settings.mespetsequiper) do
-                                    local a = { [1] = { ["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
-                                    game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a))
-                                end
-                            end
-                        end
-                    end
-                end
-            end)
+            getgenv().Settings.AutoFarm = not getgenv().Settings.AutoFarm
         end
     end,
 })
 
 
-
-ScriptsTab:AddButton({
-    Name = "Anti-Afk(FIXED)",
-    Callback = function()
-        while wait() do
-            game:GetService("Players").LocalPlayer.Idled:Connect(function()
-                game:GetService("VirtualUser"):ClickButton2(Vector2.new())
-            end)
-        end
-    end
-})
 
     ScriptsTab:AddButton({
         Name = "Auto Fuse Swords",
@@ -180,7 +116,7 @@ PlayerTab:AddDropdown({
     Name = "Select Player",
     Options = playerNames,
     Callback = function(selectedPlayer)
-        G.selectedPlayer = selectedPlayer
+        getgenv().Settings.selectedPlayer = selectedPlayer
     end
 })
 
@@ -189,8 +125,8 @@ PlayerTab:AddDropdown({
 PlayerTab:AddButton({
     Name = "Trade Selected Player",
     Callback = function()
-        if G.selectedPlayer then
-            game:GetService("ReplicatedStorage").Remotes.SendTrade:InvokeServer(game:GetService("Players")[G.selectedPlayer])
+        if getgenv().Settings.selectedPlayer then
+            game:GetService("ReplicatedStorage").Remotes.SendTrade:InvokeServer(game:GetService("Players")[getgenv().Settings.selectedPlayer])
         else
             warn("No player selected.")
         end
@@ -405,7 +341,7 @@ ScriptsTab:AddToggle({
                 print("Error: Could not find five gem IDs.")
             end
  
-            -- Wait for some time before fusing again (e.g., 5 seconds)
+            -- Wait for some time before fusing again (e.getgenv().Settings., 5 seconds)
             wait(0.1)
         end
     end
@@ -447,7 +383,7 @@ AutoRaidTab:AddButton({
         Options = {"Easy", "Medium", "Hard", "Impossible"},
         CurrentOption = "1",
         Callback = function(option)
-            G.difficulty = tonumber(option)
+            getgenv().Settings.difficulty = tonumber(option)
         end
     })
 
@@ -474,7 +410,7 @@ AutoRaidTab:AddButton({
                     -- Create a table of arguments for the 'SelectRaidsDifficulty' remote event
                     args = {
                         [1] = {
-                            ["difficulty"] = G.difficulty,
+                            ["difficulty"] = getgenv().Settings.difficulty,
                             ["roomName"] = "Room3",
                             ["selectMapId"] = 50105
                         }
@@ -664,17 +600,7 @@ KilluaOnlyTab:AddButton({
         Name = "AutoBuy Lvl 3 Ruby",
         Default = false,
         Callback = function(Value)
-            G.AutoBuyGems[10008] = Value
-            if Value then
-                while G.AutoBuyGems[10008] do
-                    local args = {
-                        [1] = 10008
-                    }
- 
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
-                    wait(1) -- Adjust the delay as needed
-                end
-            end
+            getgenv().Settings.AutoBuyGems[10008] = not getgenv().Settings.AutoBuyGems[10008]
         end,
     })
  
@@ -682,17 +608,7 @@ KilluaOnlyTab:AddButton({
         Name = "AutoBuy Lvl 3 Sapphire",
         Default = false,
         Callback = function(Value)
-            G.AutoBuyGems[10009] = Value
-            if Value then
-                while G.AutoBuyGems[10009] do
-                    local args = {
-                        [1] = 10009
-                    }
- 
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
-                    wait(1) -- Adjust the delay as needed
-                end
-            end
+            getgenv().Settings.AutoBuyGems[10009] = not getgenv().Settings.AutoBuyGems[10009]
         end,
     })
  
@@ -700,35 +616,16 @@ KilluaOnlyTab:AddButton({
         Name = "AutoBuy Lvl 3 Emerald",
         Default = false,
         Callback = function(Value)
-            G.AutoBuyGems[10010] = Value
-            if Value then
-                while G.AutoBuyGems[10010] do
-                    local args = {
-                        [1] = 10010
-                    }
- 
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
-                    wait(1) -- Adjust the delay as needed
-                end
-            end
+            getgenv().Settings.AutoBuyGems[10010] = not getgenv().Settings.AutoBuyGems[10010]
         end,
     })
+ 
  
     AutoBuyTab:AddToggle({
         Name = "AutoBuy Lvl 5 Ruby",
         Default = false,
         Callback = function(Value)
-            G.AutoBuyGems[10011] = Value
-            if Value then
-                while G.AutoBuyGems[10011] do
-                    local args = {
-                        [1] = 10011
-                    }
- 
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
-                    wait(1) -- Adjust the delay as needed
-                end
-            end
+            getgenv().Settings.AutoBuyGems[10011] = not getgenv().Settings.AutoBuyGems[10011]
        end,
     })
  
@@ -736,17 +633,7 @@ KilluaOnlyTab:AddButton({
         Name = "AutoBuy Lvl 5 Sapphire",
         Default = false,
         Callback = function(Value)
-            G.AutoBuyGems[10012] = Value
-            if Value then
-                while G.AutoBuyGems[10012] do
-                    local args = {
-                        [1] = 10012
-                    }
- 
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
-                    wait(1) -- Adjust the delay as needed
-                end
-            end
+            getgenv().Settings.AutoBuyGems[10012] = not getgenv().Settings.AutoBuyGems[10012]
         end,
     })
  
@@ -754,17 +641,7 @@ KilluaOnlyTab:AddButton({
         Name = "AutoBuy Lvl 5 Emerald",
         Default = false,
         Callback = function(Value)
-            G.AutoBuyGems[10013] = Value
-            if Value then
-                while G.AutoBuyGems[10013] do
-                    local args = {
-                        [1] = 10013
-                    }
- 
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
-                    wait(1) -- Adjust the delay as needed
-                end
-            end
+            getgenv().Settings.AutoBuyGems[10013] = not getgenv().Settings.AutoBuyGems[10013]
         end,
     })
  
@@ -772,17 +649,7 @@ KilluaOnlyTab:AddButton({
         Name = "AutoBuy Lvl 7 Ruby",
         Default = false,
         Callback = function(Value)
-            G.AutoBuyGems[10014] = Value
-            if Value then
-                while G.AutoBuyGems[10014] do
-                    local args = {
-                        [1] = 10014
-                    }
- 
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
-                    wait(1) -- Adjust the delay as needed
-                end
-            end
+            getgenv().Settings.AutoBuyGems[10014] = not getgenv().Settings.AutoBuyGems[10014]
         end,
     })
  
@@ -790,17 +657,7 @@ KilluaOnlyTab:AddButton({
         Name = "AutoBuy Lvl 7 Sapphire",
         Default = false,
         Callback = function(Value)
-            G.AutoBuyGems[10015] = Value
-            if Value then
-                while G.AutoBuyGems[10015] do
-                    local args = {
-                        [1] = 10015
-                    }
- 
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
-                    wait(1) -- Adjust the delay as needed
-                end
-            end
+            getgenv().Settings.AutoBuyGems[10015] = not getgenv().Settings.AutoBuyGems[10015]
         end,
     })
  
@@ -808,54 +665,8 @@ KilluaOnlyTab:AddButton({
         Name = "AutoBuy Lvl 7 Emerald",
         Default = false,
         Callback = function(Value)
-            G.AutoBuyGems[10016] = Value
-            if Value then
-                while G.AutoBuyGems[10016] do
-                    local args = {
-                        [1] = 10016
-                    }
- 
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
-                    wait(1) -- Adjust the delay as needed
-                end
-            end
+            getgenv().Settings.AutoBuyGems[10016] = not getgenv().Settings.AutoBuyGems[10016]
         end,
-    })
-
-KilluaOnlyTab:AddButton({
-        Name = "Drops",
-        Callback = function()
-            while wait() do
-                local args = {
-                    [1] = {
-                        ["harmIndex"] = 1,
-                        ["isSkill"] = false,
-                        ["heroGuid"] = "2d645d94-a7df-4be4-9220-6762e49ad6c4",
-                        ["skillId"] = 200004
-                    }
-                }
-
-                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("HeroSkillHarm"):FireServer(unpack(args))
-            end
-        end
-    })
-
-    KilluaOnlyTab:AddButton({
-        Name = "Damage",
-        Callback = function()
-            while wait() do
-                local args = {
-                    [1] = {
-                        ["harmIndex"] = 1,
-                        ["isSkill"] = false,
-                        ["heroGuid"] = "d8c89229-b50e-469e-ab1f-36961e012207",
-                        ["skillId"] = 200003
-                    }
-                }
-
-                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("HeroSkillHarm"):FireServer(unpack(args))
-            end
-        end
     })
 
  -- Adding a section for Auto-Dungeon in the Auto-Dungeon tab
@@ -904,6 +715,82 @@ local AutoDungeonToggle = AutoDungeonTab:AddToggle({
     end
 })
 
+ -- AutoBuy Lvl 3 Emerald + Auto collect stuff on the ground
+spawn(function()
+        while wait(1) do
+            for _, v in pairs(game.Workspace.Golds:GetChildren()) do
+                v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+            end
+            for i = 10008, 10016 do
+    if getgenv().Settings.AutoBuyGems[i] then
+        local args = {
+            [1] = i
+        }
 
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
+    end
+end
+
+
+-- Refresh Pets Inventory
+            local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+            pcall(function()
+                for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
+                    if v.isEquip == true then
+                        table.insert(getgenv().Settings.mespetsequiper, v.guid)
+                    end
+                end
+            end)
+
+            spawn(function()
+                local function getNearestChest()
+                    local nearest, dist = nil, getgenv().Settings.Range
+                    local Players = game.Players
+                    local localPlayer = Players.LocalPlayer
+                    local localCharacter = localPlayer.Character
+                    local humanoidRootPart = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart")
+                    if not humanoidRootPart then return end
+
+                    for _, enemy in pairs(Workspace.Enemys:GetChildren()) do
+                        if enemy:FindFirstChild("HumanoidRootPart") and enemy.HumanoidRootPart:FindFirstChild("EnemyNameGui") and enemy.HumanoidRootPart.EnemyNameGui.HealthNum.Text ~= "0" then
+                            local distance = (humanoidRootPart.Position - enemy.HumanoidRootPart.Position).magnitude
+                            if distance < dist then
+                                dist = distance
+                                nearest = enemy
+                            end
+                        end
+                    end
+                    return nearest
+                end
+
+                while task.wait() do
+                    if getgenv().Settings.AutoFarm then
+                        local nearestEnemy = getNearestChest()
+
+                        if nearestEnemy then
+                            spawn(function()
+                                if getgenv().Settings.WalkToEnemy then
+                                    if nearestEnemy:FindFirstChild("HumanoidRootPart") then
+                                        player.Character.Humanoid:MoveTo(nearestEnemy.HumanoidRootPart.Position)
+                                    end
+                                end
+                            end)
+
+                            spawn(function()
+                                local args = { nearestEnemy:GetAttribute("EnemyGuid") }
+                                game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args))
+                                game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args))
+                            end)
+
+                            if getgenv().Settings.DamageBoost then
+                                for c, d in pairs(getgenv().Settings.mespetsequiper) do
+                                    local a = { [1] = { ["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
+                                    game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a))
+                                end
+                            end
+                        end
+                    end
+                end
+            end)
 
 end
