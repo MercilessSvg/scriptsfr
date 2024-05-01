@@ -33,10 +33,10 @@ getgenv().Settings = {
          },
 	mespetsequiper = {},
 	Range = 200,
-	AutoFarm = true,
 	WalkToEnemy = false,
 	DamageBoost = true,
 	DamageNumber = 0.99,
+	AutoFarm = false 
     }
 
 
@@ -76,7 +76,7 @@ ScriptsTab:AddToggle({
     Name = "Tora Scripts",
     Callback = function(state)
         if state then
-            getgenv().Settings.AutoFarm = true
+            getgenv().Settings.AutoFarm
             spawn(function()
                 while wait(1) do
                     for _, v in pairs(game.Workspace.Golds:GetChildren()) do
