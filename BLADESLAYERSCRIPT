@@ -21,7 +21,7 @@ if game.PlaceId == 15744137588 then
 
     getgenv().Settings = {
         AutoAtk = false,     -- Starting disabled
-        AutoDungeon = false, -- Starting disabled
+        AutoDungeon = false
         AutoBuyGems = {
             [10008] = false,
             [10009] = false,
@@ -552,48 +552,7 @@ if game.PlaceId == 15744137588 then
     -- Adding a section for Auto-Dungeon in the Auto-Dungeon tab
     AutoDungeonTab:AddSection({ Name = "Auto-Dungeon" })
 
-    -- Define a function to teleport the player to a specific dungeon and back
-    local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
-        -- Teleport the player to the specified dungeon
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({
-            ["mapId"] = dungeonMapId
-        })
 
-        -- Wait for the specified return time
-        wait(returnTime)
-
-        -- Teleport the player back to the original map
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({
-            ["mapId"] = returnMapId
-        })
-    end
-
-    -- Define a toggle button to enable/disable auto-dungeon teleporting
-    local AutoDungeonToggle = AutoDungeonTab:AddToggle({
-        Name = "Auto-Dungeon(FINALLY FIXED!!!)",
-        Default = false,
-        Callback = function(Value)
-            if Value then
-                -- Start the auto-dungeon teleporting loop
-                while true do
-                    -- Get the current time
-                    local currentTime = os.time()
-
-                    -- Calculate the time for the next dungeon teleport (15 seconds before each 30 minutes)
-                    local nextTeleportTime = math.ceil(currentTime / (30 * 60)) * (30 * 60) - 15
-
-                    -- Calculate the wait time until the next dungeon teleport
-                    local waitTime = nextTeleportTime - currentTime
-
-                    -- Wait until the next dungeon teleport time
-                    wait(waitTime)
-
-                    -- Teleport to the dungeon
-                    TeleportToAndFromDungeon(50016, 50001, 15 * 60)
-                end
-            end
-        end
-    })
 
     -- AutoBuy al gems + Auto collect stuff on the ground
     spawn(function()
