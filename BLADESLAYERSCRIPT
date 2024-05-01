@@ -356,9 +356,9 @@ if game.PlaceId == 15744137588 then
             Name = "Auto Fuse Lvl " .. i .. " Gems",
             Default = false,
             Callback = function(Value)
-                G["AutoFuseGemsLevel" .. i] = Value
+                getgenv().Settings["AutoFuseGemsLevel" .. i] = Value
                 if Value then
-                    while G["AutoFuseGemsLevel" .. i] do
+                    while getgenv().Settings["AutoFuseGemsLevel" .. i] do
                         FuseFirstFiveGems(i)
                     end
                 end
