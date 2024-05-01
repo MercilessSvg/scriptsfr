@@ -170,8 +170,7 @@ if game.PlaceId == 15744137588 then
                     [1] = 10014
                 }
 
-                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(
-                    unpack(args))
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
             end
         end
     })
@@ -184,8 +183,7 @@ if game.PlaceId == 15744137588 then
                     [1] = 10015
                 }
 
-                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(
-                    unpack(args))
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
             end
         end
     })
@@ -198,8 +196,7 @@ if game.PlaceId == 15744137588 then
                     [1] = 10016
                 }
 
-                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(
-                    unpack(args))
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
             end
         end
     })
@@ -412,8 +409,7 @@ if game.PlaceId == 15744137588 then
                     }
 
                     -- Call the 'EnterRaidRoom' remote event
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnterRaidRoom")
-                        :FireServer(unpack(args))
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnterRaidRoom"):FireServer(unpack(args))
 
                     -- Create a table of arguments for the 'SelectRaidsDifficulty' remote event
                     args = {
@@ -425,8 +421,7 @@ if game.PlaceId == 15744137588 then
                     }
 
                     -- Call the 'SelectRaidsDifficulty' remote event
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SelectRaidsDifficulty")
-                        :FireServer(unpack(args))
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SelectRaidsDifficulty"):FireServer(unpack(args))
 
                     -- Create a table of arguments for the 'StartChallengeRaidMap' remote event
                     args = {
@@ -439,8 +434,7 @@ if game.PlaceId == 15744137588 then
                     }
 
                     -- Call the 'StartChallengeRaidMap' remote event
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StartChallengeRaidMap")
-                        :InvokeServer(unpack(args))
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StartChallengeRaidMap"):InvokeServer(unpack(args))
 
                     -- Call the 'LocalPlayerTeleportSuccess' remote event
                     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild(
@@ -458,8 +452,7 @@ if game.PlaceId == 15744137588 then
                     }
 
                     -- Call the 'QuitRaidsMap' remote event
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuitRaidsMap")
-                        :InvokeServer(unpack(args))
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuitRaidsMap"):InvokeServer(unpack(args))
 
                     -- Wait for 60 seconds before restarting the script
                     wait(60)
@@ -656,8 +649,7 @@ if game.PlaceId == 15744137588 then
                     local args = {
                         [1] = i
                     }
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange")
-                        :FireServer(unpack(args))
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
                 end
             end
         end
