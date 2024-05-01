@@ -161,48 +161,6 @@ if game.PlaceId == 15744137588 then
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy()
         end
     })
-
-    AutoBuyTab:AddButton({
-        Name = "AutoBuy Gem Level 7(Ruby)",
-        Callback = function()
-            while wait() do
-                local args = {
-                    [1] = 10014
-                }
-
-                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
-            end
-        end
-    })
-
-    AutoBuyTab:AddButton({
-        Name = "AutoBuy Gem Level 7(Sapphire)",
-        Callback = function()
-            while wait() do
-                local args = {
-                    [1] = 10015
-                }
-
-                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
-            end
-        end
-    })
-
-    AutoBuyTab:AddButton({
-        Name = "AutoBuy Gem Level 7(Emerald)",
-        Callback = function()
-            while wait() do
-                local args = {
-                    [1] = 10016
-                }
-
-                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
-            end
-        end
-    })
-
-
-
     autoGainPower = false
     autoGainPowerLoop = nil
     fireDelay = 1 -- Delay in seconds
