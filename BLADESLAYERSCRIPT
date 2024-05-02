@@ -89,7 +89,6 @@ ScriptsTab:AddButton({
             while wait() do
                 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseWeapon"):FireServer()
             end
-        wait.task(3)
       end
     })
 
