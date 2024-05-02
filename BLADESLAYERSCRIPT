@@ -34,6 +34,7 @@
         WalkToEnemy = false,
         DamageBoost = true,
         DamageNumber = 0.99,
+        AutoFuse = false,
     }
 
     -- Anti AFK #1
@@ -83,16 +84,15 @@
         PremiumOnly = false
     })
 
-   
-    ScriptsTab:AddButton({
-        Name = "Auto Fuse Swords",
-        Callback = function()
-            while wait() do
-                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseWeapon"):FireServer()
-            end
-        task.wait(3)    
-    end
-    })
+    ScriptsTab:AddToggle({
+    Name = "Auto Fuse Swords",
+    Callback = function()
+        
+            getgenv().Settings.AutoFuse = not getgenv().Settings.AutoFuse
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseWeapon"):FireServer()
+            task.wait(3)
+        end
+})
 
     -- Adding a dropdown list to select players
     local playerNames = {}
