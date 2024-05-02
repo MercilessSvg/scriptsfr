@@ -21,7 +21,7 @@ if game.PlaceId == 15744137588 then
 
     getgenv().Settings = {
         AutoAtk = false,     -- Starting disabled
-        AutoDungeon = false
+        AutoDungeon = false, -- Starting disabled
         AutoBuyGems = {
             [10008] = false,
             [10009] = false,
@@ -89,7 +89,7 @@ if game.PlaceId == 15744137588 then
     })
 
     ScriptsTab:AddToggle({
-        Name = "Kill Aura",
+        Name = "Tora Scripts",
         Callback = function(state)
             if state then
                 getgenv().Settings.AutoFarm = not getgenv().Settings.AutoFarm
@@ -161,6 +161,48 @@ if game.PlaceId == 15744137588 then
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy()
         end
     })
+
+    AutoBuyTab:AddButton({
+        Name = "AutoBuy Gem Level 7(Ruby)",
+        Callback = function()
+            while wait() do
+                local args = {
+                    [1] = 10014
+                }
+
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
+            end
+        end
+    })
+
+    AutoBuyTab:AddButton({
+        Name = "AutoBuy Gem Level 7(Sapphire)",
+        Callback = function()
+            while wait() do
+                local args = {
+                    [1] = 10015
+                }
+
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
+            end
+        end
+    })
+
+    AutoBuyTab:AddButton({
+        Name = "AutoBuy Gem Level 7(Emerald)",
+        Callback = function()
+            while wait() do
+                local args = {
+                    [1] = 10016
+                }
+
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
+            end
+        end
+    })
+
+
+
     autoGainPower = false
     autoGainPowerLoop = nil
     fireDelay = 1 -- Delay in seconds
@@ -552,7 +594,48 @@ if game.PlaceId == 15744137588 then
     -- Adding a section for Auto-Dungeon in the Auto-Dungeon tab
     AutoDungeonTab:AddSection({ Name = "Auto-Dungeon" })
 
+    -- Define a function to teleport the player to a specific dungeon and back
+    local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
+        -- Teleport the player to the specified dungeon
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({
+            ["mapId"] = dungeonMapId
+        })
 
+        -- Wait for the specified return time
+        wait(returnTime)
+
+        -- Teleport the player back to the original map
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({
+            ["mapId"] = returnMapId
+        })
+    end
+
+    -- Define a toggle button to enable/disable auto-dungeon teleporting
+    local AutoDungeonToggle = AutoDungeonTab:AddToggle({
+        Name = "Auto-Dungeon(FINALLY FIXED!!!)",
+        Default = false,
+        Callback = function(Value)
+            if Value then
+                -- Start the auto-dungeon teleporting loop
+                while true do
+                    -- Get the current time
+                    local currentTime = os.time()
+
+                    -- Calculate the time for the next dungeon teleport (15 seconds before each 30 minutes)
+                    local nextTeleportTime = math.ceil(currentTime / (30 * 60)) * (30 * 60) - 15
+
+                    -- Calculate the wait time until the next dungeon teleport
+                    local waitTime = nextTeleportTime - currentTime
+
+                    -- Wait until the next dungeon teleport time
+                    wait(waitTime)
+
+                    -- Teleport to the dungeon
+                    TeleportToAndFromDungeon(50016, 50001, 15 * 60)
+                end
+            end
+        end
+    })
 
     -- AutoBuy al gems + Auto collect stuff on the ground
     spawn(function()
