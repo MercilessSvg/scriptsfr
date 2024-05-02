@@ -664,14 +664,11 @@ ScriptsTab:AddToggle({
     end
 })
 
-local Slider = ScriptsTab:AddSlider({
-    Name = "Aura Range",
-    Min = 50,
-    Max = 1000,
-    Default = 200,
+local TextBox = ScriptsTab:AddTextBox({
+    Name = "Range(50-1000)",
+    Default = "Input Range",
     Callback = function(value)
         getgenv().Settings.Range = value
     end
 })
-
 end
