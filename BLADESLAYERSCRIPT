@@ -1,7 +1,5 @@
 -- Checking if the PlaceId condition is satisfied
 if game.PlaceId == 15744137588 then
-    -- Set the Player Data
-    local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
 
     -- Loading the OrionLib library
     local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
@@ -88,17 +86,7 @@ if game.PlaceId == 15744137588 then
         PremiumOnly = false
     })
 
-    ScriptsTab:AddToggle({
-        Name = "Tora Scripts",
-        Callback = function(state)
-            if state then
-                getgenv().Settings.AutoFarm = not getgenv().Settings.AutoFarm
-            end
-        end,
-    })
-
-
-
+   
     ScriptsTab:AddButton({
         Name = "Auto Fuse Swords",
         Callback = function()
@@ -162,47 +150,6 @@ if game.PlaceId == 15744137588 then
         end
     })
 
-    AutoBuyTab:AddButton({
-        Name = "AutoBuy Gem Level 7(Ruby)",
-        Callback = function()
-            while wait() do
-                local args = {
-                    [1] = 10014
-                }
-
-                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
-            end
-        end
-    })
-
-    AutoBuyTab:AddButton({
-        Name = "AutoBuy Gem Level 7(Sapphire)",
-        Callback = function()
-            while wait() do
-                local args = {
-                    [1] = 10015
-                }
-
-                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
-            end
-        end
-    })
-
-    AutoBuyTab:AddButton({
-        Name = "AutoBuy Gem Level 7(Emerald)",
-        Callback = function()
-            while wait() do
-                local args = {
-                    [1] = 10016
-                }
-
-                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
-            end
-        end
-    })
-
-
-
     autoGainPower = false
     autoGainPowerLoop = nil
     fireDelay = 1 -- Delay in seconds
@@ -230,14 +177,6 @@ if game.PlaceId == 15744137588 then
             end
         end
     })
-
-    ScriptsTab:AddButton({
-        Name = "SimpleSpy",
-        Callback = function()
-            loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpyBeta.lua"))()
-        end
-    })
-
 
     -- Creating the Auto-Dungeon tab
     local AutoDungeonTab = Window:MakeTab({
@@ -637,88 +576,92 @@ if game.PlaceId == 15744137588 then
         end
     })
 
-    -- AutoBuy al gems + Auto collect stuff on the ground
-    spawn(function()
-        while wait(1) do
-            for _, v in pairs(game.Workspace.Golds:GetChildren()) do
-                v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-            end
+ScriptsTab:AddToggle({
+    Name = "KillAura/AutoCollect",
+    Default = false,
+    Callback = function(Value)
+        _G.AutoFarm = Value -- Update the AutoFarm global variable based on the toggle value
+        if Value then
+            -- Your existing script goes here
+            _G.mespetsequiper = {}
+            _G.Range = 250
+            _G.WalkToEnemy = false
+            _G.DamageBoost = true
+            _G.DamageNumber = 0.99 -- Use 2, not more unless you have a good PC
 
-            for i = 10008, 10016 do
-                if getgenv().Settings.AutoBuyGems[i] then
-                    local args = {
-                        [1] = i
-                    }
-                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
-                end
-            end
-        end
-    end)
-
-
-
-    -- Refresh Pets Inventory
-    function CheckPetsEquipped()
-        pcall(function()
-            for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
-                if v.isEquip == true then
-                    table.insert(getgenv().Settings.mespetsequiper, v.guid)
-                end
-            end
-        end)
-    end
-
-    CheckPetsEquipped()
-
-
-    spawn(function()
-        local function getNearestChest()
-            local nearest, dist = nil, getgenv().Settings.Range
-            local Players = game.Players
-            local localPlayer = Players.LocalPlayer
-            local localCharacter = localPlayer.Character
-            local humanoidRootPart = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart")
-            if not humanoidRootPart then return end
-
-            for _, enemy in pairs(Workspace.Enemys:GetChildren()) do
-                if enemy:FindFirstChild("HumanoidRootPart") and enemy.HumanoidRootPart:FindFirstChild("EnemyNameGui") and enemy.HumanoidRootPart.EnemyNameGui.HealthNum.Text ~= "0" then
-                    local distance = (humanoidRootPart.Position - enemy.HumanoidRootPart.Position).magnitude
-                    if distance < dist then
-                        dist = distance
-                        nearest = enemy
+            spawn(function()
+                while wait(0.1) do
+                    for _, v in pairs(game.Workspace.Golds:GetChildren()) do
+                        v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
                     end
                 end
-            end
-            return nearest
-        end
+            end)
 
-        while task.wait() do
-            if getgenv().Settings.AutoFarm then
-                local nearestEnemy = getNearestChest()
+            local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+            pcall(function()
+                for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
+                    if v.isEquip == true then
+                        table.insert(_G.mespetsequiper, v.guid)
+                    end
+                end
+            end)
 
-                if nearestEnemy then
-                    spawn(function()
-                        if getgenv().Settings.WalkToEnemy then
-                            if nearestEnemy:FindFirstChild("HumanoidRootPart") then
-                                player.Character.Humanoid:MoveTo(nearestEnemy.HumanoidRootPart.Position)
+            spawn(function()
+                local function getNearestChest()
+                    local nearest, dist = nil, _G.Range
+                    local Players = game.Players
+                    local localPlayer = Players.LocalPlayer
+                    local localCharacter = localPlayer.Character
+                    local humanoidRootPart = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart")
+                    if not humanoidRootPart then return end
+
+                    for _, enemy in pairs(Workspace.Enemys:GetChildren()) do
+                        if enemy:FindFirstChild("HumanoidRootPart") and enemy.HumanoidRootPart:FindFirstChild("EnemyNameGui") and          enemy.HumanoidRootPart.EnemyNameGui.HealthNum.Text ~= "0" then
+                            local distance = (humanoidRootPart.Position - enemy.HumanoidRootPart.Position).magnitude
+                            if distance < dist then
+                                dist = distance
+                                nearest = enemy
                             end
                         end
-                    end)
+                    end
+                    return nearest
+                end
 
-                    spawn(function()
-                        local args = { nearestEnemy:GetAttribute("EnemyGuid") }
-                        game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args))
-                        game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args))
-                    end)
+                while task.wait() do
+                    if _G.AutoFarm then
+                        local nearestEnemy = getNearestChest()
 
-                    if getgenv().Settings.DamageBoost then
-                        for c, d in pairs(getgenv().Settings.mespetsequiper) do
-                            local a = { [1] = { ["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
-                            game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a))
+                        if nearestEnemy then
+                            spawn(function()
+                                if _G.WalkToEnemy then
+                                    if nearestEnemy:FindFirstChild("HumanoidRootPart") then
+                                        player.Character.Humanoid:MoveTo(nearestEnemy.HumanoidRootPart.Position)
+                                    end
+                                end
+                            end)
+
+                            spawn(function()
+                                local args = { nearestEnemy:GetAttribute("EnemyGuid") }
+                                game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args))
+                                game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args))
+                            end)
+
+                            if _G.DamageBoost then
+                                  -- for x = 0.99, _G.DamageNumber do
+                            for c, d in pairs(_G.mespetsequiper) do
+                                    local a = { [1] = { ["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
+                                    game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a))
+                                end
+                            end
+                        else
+                            game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer()
                         end
                     end
                 end
-            end
+            end)
         end
-    end)
+    end
+})
+
+
 end
