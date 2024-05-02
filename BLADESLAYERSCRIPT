@@ -1,7 +1,4 @@
--- Checking if the PlaceId condition is satisfied
-if game.PlaceId == 15744137588 then
-
-    -- Loading the OrionLib library
+ -- Loading the OrionLib library
     local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
     if not OrionLib then
         error("Failed to load the OrionLib library")
@@ -93,7 +90,8 @@ if game.PlaceId == 15744137588 then
             while wait() do
                 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseWeapon"):FireServer()
             end
-        end
+        task.wait(3)    
+    end
     })
 
     -- Adding a dropdown list to select players
