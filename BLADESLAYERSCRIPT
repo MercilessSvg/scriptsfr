@@ -1,4 +1,6 @@
--- Set the Player Data
+-- Checking if the PlaceId condition is satisfied
+if game.PlaceId == 15744137588 then
+    -- Set the Player Data
     local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
 
     -- Loading the OrionLib library
