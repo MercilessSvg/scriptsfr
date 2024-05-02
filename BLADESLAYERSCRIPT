@@ -664,7 +664,7 @@ ScriptsTab:AddToggle({
     end
 })
 
-local TextBox = ScriptsTab:AddTextBox({
+ScriptsTab:AddTextbox({
     Name = "Range(50-1000)",
     Default = "Input Range",
     Callback = function(value)
