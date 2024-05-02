@@ -663,5 +663,14 @@ ScriptsTab:AddToggle({
     end
 })
 
+local Slider = PlayerTab:AddSlider({
+    Name = "Aura Range",
+    Min = 50,
+    Max = 1000,
+    Default = 200,
+    Callback = function(value)
+        getgenv().Settings.Range = value
+    end
+})
 
 end
