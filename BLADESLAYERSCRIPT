@@ -93,7 +93,8 @@ if game.PlaceId == 15744137588 then
             while wait() do
                 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseWeapon"):FireServer()
             end
-        end
+        wait.time(2)
+       end
     })
 
     -- Adding a dropdown list to select players
@@ -663,7 +664,7 @@ ScriptsTab:AddToggle({
     end
 })
 
-local Slider = PlayerTab:AddSlider({
+local Slider = ScriptsTab:AddSlider({
     Name = "Aura Range",
     Min = 50,
     Max = 1000,
