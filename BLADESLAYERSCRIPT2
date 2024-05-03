@@ -339,25 +339,26 @@ local AutoDungeonToggle =
     }
 )
            
-		spawn(function()
-                while wait(1) do
+            spawn(function()
+                while wait(0.1) do
                     for _, v in pairs(game.Workspace.Golds:GetChildren()) do
                         v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
                     end
                 end
             end)
-		local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+
+            local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
             pcall(function()
                 for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
                     if v.isEquip == true then
-                        table.insert(getgenv().Settings.mespetsequiper, v.guid)
+                        table.insert(_G.mespetsequiper, v.guid)
                     end
                 end
             end)
 
             spawn(function()
-                local function Getenemies()
-                    local nearest, dist = nil, getgenv().Settings.Range
+                local function getNearestChest()
+                    local nearest, dist = nil, _G.Range
                     local Players = game.Players
                     local localPlayer = Players.LocalPlayer
                     local localCharacter = localPlayer.Character
@@ -365,7 +366,7 @@ local AutoDungeonToggle =
                     if not humanoidRootPart then return end
 
                     for _, enemy in pairs(Workspace.Enemys:GetChildren()) do
-                        if enemy:FindFirstChild("HumanoidRootPart") and enemy.HumanoidRootPart:FindFirstChild("EnemyNameGui") and enemy.HumanoidRootPart.EnemyNameGui.HealthNum.Text ~= "0" then
+                        if enemy:FindFirstChild("HumanoidRootPart") and enemy.HumanoidRootPart:FindFirstChild("EnemyNameGui") and          enemy.HumanoidRootPart.EnemyNameGui.HealthNum.Text ~= "0" then
                             local distance = (humanoidRootPart.Position - enemy.HumanoidRootPart.Position).magnitude
                             if distance < dist then
                                 dist = distance
@@ -378,7 +379,7 @@ local AutoDungeonToggle =
 
                 while task.wait() do
                     if getgenv().Settings.AutoFarm then
-                        local nearestEnemy = Getenemies()
+                        local nearestEnemy = getNearestChest()
 
                         if nearestEnemy then
                             spawn(function()
@@ -388,16 +389,16 @@ local AutoDungeonToggle =
                                     end
                                 end
                             end)
+
                             spawn(function()
                                 local args = { nearestEnemy:GetAttribute("EnemyGuid") }
                                 game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args))
                                 game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args))
                             end)
-			end
 
 
                         
-    	if getgenv().Settings.DamageBoost then
+    			if getgenv().Settings.DamageBoost then
                                 for c, d in pairs(getgenv().Settings.mespetsequiper) do
                                     local a = { [1] = { ["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
                                     game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a))
