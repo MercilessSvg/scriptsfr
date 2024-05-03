@@ -1,12 +1,181 @@
---[[
- .____                  ________ ___.    _____                           __                
- |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
- |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
- |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
- |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
-         \/          \/         \/    \/                \/     \/     \/                   
-          \_Welcome to LuaObfuscator.com   (Alpha 0.10.4) ~  Much Love, Ferib 
+-- Checking if the PlaceId condition is satisfied
+if game.PlaceId == 15744137588 then
 
-]]--
+    -- Loading the OrionLib library
+    local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+    if not OrionLib then
+        error("Failed to load the OrionLib library")
+        return
+    end
 
-local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v8,v9) local v10={};for v11=1, #v8 do v6(v10,v0(v4(v1(v2(v8,v11,v11 + 1 )),v1(v2(v9,1 + (v11% #v9) ,1 + (v11% #v9) + 1 )))%256 ));end return v5(v10);end if (game.PlaceId==(15744137588 -0)) then local v12=496 -(298 + 198) ;local v13;while true do if ((3 + 0)==v12) then v13=RollerTab:AddButton({[v7("\47\230\69\90","\19\97\135\40\63")]=v7("\156\89\33\52\35\61\238\115\33\53\46\60\171\82\39","\81\206\60\83\91\79"),[v7("\109\170\220\126\45\194\78\175","\196\46\203\176\18\79\163\45")]=function() local v15=0 -0 ;local v16;while true do if ((497 -(182 + 314))==v15) then print(v7("\24\143\34\165\185\169\118\56\152\63\188\185\184\50\107\205","\86\75\236\80\204\201\221"));break;end if (v15==(0 + 0)) then v16=false;repeat local v26=0 + 0 ;local v27;local v28;while true do if (v26==(2 + 0)) then if ((tostring(v28.ornamentId)==v7("\214\124\245\26\141\20","\113\226\77\197\42\188\32")) or (tostring(v28.ornamentId)==v7("\110\71\164\229\107\67","\213\90\118\148"))) then local v41=0 + 0 ;local v42;local v43;local v44;while true do if (v41==(0 -0)) then v42=0 -0 ;v43=nil;v41=239 -(64 + 174) ;end if (v41==(1 + 0)) then v44=nil;while true do if (v42==1) then while true do if (v43==(0 -0)) then v44=v7("\117\33\186\83","\45\59\78\212\54");if (tostring(v28.ornamentId)==v7("\68\7\211\219\215\122","\144\112\54\227\235\230\78\205")) then v44=v7("\159\45\8\249\222\95\178\58\22","\59\211\72\111\156\176");elseif (tostring(v28.ornamentId)==v7("\26\214\179\125\31\210","\77\46\231\131")) then v44=v7("\136\85\191\78\184\91\161","\32\218\52\214");end v43=337 -(144 + 192) ;end if (v43==1) then print(v7("\15\86\113\154\212\130\106\118\98\87\23\135\196\158\97\26\15\86\113\242\177","\58\46\119\81\200\145\208\37")   .. v44 );v16=true;break;end end break;end if ((216 -(42 + 174))==v42) then v43=0 + 0 ;v44=nil;v42=1;end end break;end end end break;end if (v26==0) then v27={[766 -(574 + 191) ]=331352 + 68651 };v28=game:GetService(v7("\138\39\110\18\45\248\238\172\39\122\45\48\244\253\185\37\123","\143\216\66\30\126\68\155")).Remotes.RerollOrnament:InvokeServer(unpack(v27));v26=1 + 0 ;end if (v26==(1505 -(363 + 1141))) then local v32=0;while true do if ((1581 -(1183 + 397))==v32) then v26=5 -3 ;break;end if (v32==(0 + 0)) then wait(0.1);if ((tostring(v28.ornamentId)~=v7("\254\153\93\155\148\242","\129\202\168\109\171\165\195\183")) and (tostring(v28.ornamentId)~=v7("\118\9\103\136\143\70","\134\66\56\87\184\190\116")) and (tostring(v28.ornamentId)~=v7("\104\96\89\235\72\184","\85\92\81\105\219\121\139\65")) and (tostring(v28.ornamentId)~=v7("\169\226\0\21\45\139","\191\157\211\48\37\28")) and (tostring(v28.ornamentId)~=v7("\139\78\164\76\107\138","\90\191\127\148\124"))) then local v47=1790 -(573 + 1217) ;while true do if (v47==(0 + 0)) then print(v7("\77\137\37\25\119\144\32\87\106\130\60\24\116\139\110\17\119\146\32\19\56\198\110\77\56","\119\24\231\78")   .. tostring(v28.ornamentId) );v16=true;break;end end end v32=1 + 0 ;end end end end until v16 v15=1 -0 ;end end end});v13=RollerTab:AddButton({[v7("\92\64\122\128","\235\18\33\23\229\158")]=v7("\98\191\211\180\92\182\129\143\66\187\200\183","\219\48\218\161"),[v7("\199\112\112\69\217\78\227\239","\128\132\17\28\41\187\47")]=function() local v17=1975 -(1913 + 62) ;local v18;while true do if (v17==(1 + 0)) then print(v7("\242\65\32\223\21\213\2\33\194\10\209\82\55\210\69\128","\101\161\34\82\182"));break;end if (v17==(0 -0)) then local v25=1933 -(565 + 1368) ;while true do if (v25==(3 -2)) then v17=1;break;end if (v25==(1661 -(1477 + 184))) then v18=false;repeat local v33=0;local v34;local v35;while true do if (v33==(1 -0)) then wait(0.1 + 0 );if ((tostring(v35.ornamentId)~=v7("\248\127\251\27\150\1","\105\204\78\203\43\167\55\126")) and (tostring(v35.ornamentId)~=v7("\241\251\115\78\66\83","\49\197\202\67\126\115\100\167")) and (tostring(v35.ornamentId)~=v7("\99\10\143\121\209\14","\62\87\59\191\73\224\54")) and (tostring(v35.ornamentId)~=v7("\179\83\170\153\182\91","\169\135\98\154")) and (tostring(v35.ornamentId)~=v7("\159\38\116\4\175\99","\168\171\23\68\52\157\83"))) then print(v7("\193\127\254\163\42\58\137\180\99\240\191\42\33\139\180\119\250\184\43\41\199\181\49\175\237","\231\148\17\149\205\69\77")   .. tostring(v35.ornamentId) );v18=true;end v33=858 -(564 + 292) ;end if (v33==(2 -0)) then if ((tostring(v35.ornamentId)==v7("\212\246\151\171\6\166","\159\224\199\167\155\55")) or (tostring(v35.ornamentId)==v7("\163\162\108\130\165\163","\178\151\147\92"))) then local v48=0 -0 ;local v49;local v50;while true do if (v48==(304 -(244 + 60))) then v49=0 + 0 ;v50=nil;v48=98 -(11 + 86) ;end if (v48==(477 -(41 + 435))) then while true do if (v49==(1001 -(938 + 63))) then local v55=0 -0 ;while true do if (v55==(4 -3)) then v49=1 + 0 ;break;end if (v55==(0 -0)) then v50=v7("\162\242\66\55","\26\236\157\44\82\114\44");if (tostring(v35.ornamentId)==v7("\126\127\133\11\123\119","\59\74\78\181")) then v50=v7("\9\212\93\95\189\33\208\72\67","\211\69\177\58\58");elseif (tostring(v35.ornamentId)==v7("\227\180\41\165\187\155","\171\215\133\25\149\137")) then v50=v7("\211\201\59\244\237\63\235","\34\129\168\82\154\143\80\156");end v55=1126 -(936 + 189) ;end end end if (v49==(1 + 0)) then print(v7("\196\243\115\57\109\124\166\169\158\115\45\103\123\167\161\242\114\74\8\20\201","\233\229\210\83\107\40\46")   .. v50 );FoundReroll=true;break;end end break;end end end break;end if (v33==(1613 -(1565 + 48))) then v34={[1 + 0 ]=401142 -(782 + 356) };v35=game:GetService(v7("\51\55\22\54\84\2\51\18\63\89\50\38\9\40\92\6\55","\61\97\82\102\90")).Remotes.RerollOrnament:InvokeServer(unpack(v34));v33=268 -(176 + 91) ;end end until v18 v25=1 + 0 ;end end end end end});break;end if (v12==(4 -2)) then v13=RollerTab:AddButton({[v7("\44\187\134\50","\185\98\218\235\87")]=v7("\249\57\53\233\210\166\139\17\38\245\213","\202\171\92\71\134\190"),[v7("\10\192\32\132\43\192\47\131","\232\73\161\76")]=function() local v19=0 -0 ;local v20;local v21;while true do if (v19==(3 -2)) then while true do if (v20==(1093 -(975 + 117))) then print(v7("\34\51\160\49\94\35\105\2\36\189\40\94\50\45\81\113","\73\113\80\210\88\46\87"));break;end if (v20==(1875 -(157 + 1718))) then v21=false;repeat local v36=0 + 0 ;local v37;local v38;local v39;while true do if (v36==(1 -0)) then v39=nil;while true do if ((1 + 0)==v37) then local v51=1744 -(1344 + 400) ;while true do if ((3 -2)==v51) then v37=6 -4 ;break;end if (v51==(0 + 0)) then wait(0.1 -0 );if ((tostring(v39.ornamentId)~=v7("\88\159\14\34\46\38","\135\108\174\62\18\30\23\147")) and (tostring(v39.ornamentId)~=v7("\226\184\122\155\72\252","\167\214\137\74\171\120\206\83")) and (tostring(v39.ornamentId)~=v7("\223\161\98\13\168\244","\199\235\144\82\61\152")) and (tostring(v39.ornamentId)~=v7("\83\71\233\123\87\66","\75\103\118\217")) and (tostring(v39.ornamentId)~=v7("\147\5\32\68\233\75","\126\167\52\16\116\217"))) then local v56=0 -0 ;local v57;while true do if (v56==(1018 -(697 + 321))) then v57=406 -(183 + 223) ;while true do if (v57==0) then print(v7("\253\32\43\142\187\14\242\136\60\37\146\187\21\240\136\40\47\149\186\29\188\137\110\122\192","\156\168\78\64\224\212\121")   .. tostring(v39.ornamentId) );v21=true;break;end end break;end end end v51=2 -1 ;end end end if ((0 -0)==v37) then v38={[2 -1 ]=155698 + 244303 };v39=game:GetService(v7("\137\220\82\81\23\184\216\86\88\26\136\205\77\79\31\188\220","\126\219\185\34\61")).Remotes.RerollOrnament:InvokeServer(unpack(v38));v37=1;end if (v37==(3 -1)) then if ((tostring(v39.ornamentId)==v7("\83\191\245\158\87\186","\174\103\142\197")) or (tostring(v39.ornamentId)==v7("\2\121\15\104\117\11","\152\54\72\63\88\69\62"))) then local v52=0 -0 ;local v53;local v54;while true do if (v52==(1227 -(322 + 905))) then v53=337 -(10 + 327) ;v54=nil;v52=612 -(602 + 9) ;end if (v52==(1190 -(449 + 740))) then while true do if (v53==(872 -(826 + 46))) then v54=v7("\250\203\224\89","\60\180\164\142");if (tostring(v39.ornamentId)==v7("\12\15\85\121\119\185","\114\56\62\101\73\71\141")) then v54=v7("\148\236\220\193\182\237\218\214\161","\164\216\137\187");elseif (tostring(v39.ornamentId)==v7("\134\183\97\226\246\171","\107\178\134\81\210\198\158")) then v54=v7("\10\15\139\200\168\55\25","\202\88\110\226\166");end v53=948 -(245 + 702) ;end if (v53==(3 -2)) then print(v7("\130\78\194\197\239\241\32\174\219\138\229\32\183\217\238\131\78\195\183\144\131","\170\163\111\226\151")   .. v54 );v21=true;break;end end break;end end end break;end end break;end if (v36==(0 + 0)) then v37=1898 -(260 + 1638) ;v38=nil;v36=1 -0 ;end end until v21 v20=470 -(270 + 199) ;end end break;end if (v19==(0 + 0)) then v20=440 -(382 + 58) ;v21=nil;v19=2 -1 ;end end end});v13=RollerTab:AddButton({[v7("\175\45\192\23","\135\225\76\173\114")]=v7("\40\232\170\191\160\177\231\59\250\185\187\169\179\174\20\234","\199\122\141\216\208\204\221"),[v7("\142\220\28\252\122\247\174\214","\150\205\189\112\144\24")]=function() local v22=0 -0 ;local v23;while true do if (v22==(0 + 0)) then v23=false;repeat local v29=0;local v30;local v31;while true do if (v29==(1 + 0)) then local v40=0 -0 ;while true do if ((0 -0)==v40) then wait(1205.1 -(902 + 303) );if ((tostring(v31.ornamentId)~=v7("\128\78\87\131\230\42","\230\180\127\103\179\214\28")) and (tostring(v31.ornamentId)~=v7("\216\84\15\22\180\22","\128\236\101\63\38\132\33")) and (tostring(v31.ornamentId)~=v7("\248\248\65\20\230\179","\175\204\201\113\36\214\139")) and (tostring(v31.ornamentId)~=v7("\19\157\101\140\84\30","\100\39\172\85\188")) and (tostring(v31.ornamentId)~=v7("\249\41\233\208\98\253","\83\205\24\217\224"))) then print(v7("\211\203\198\51\233\210\195\125\244\192\223\50\234\201\141\59\233\208\195\57\166\132\141\103\166","\93\134\165\173")   .. tostring(v31.ornamentId) );v23=true;end v40=1 -0 ;end if (v40==(2 -1)) then v29=1792 -(1010 + 780) ;break;end end end if (v29==(0 + 0)) then v30={[1691 -(1121 + 569) ]=400216 -(22 + 192) };v31=game:GetService(v7("\23\129\175\64\13\139\16\4\32\128\140\88\11\154\16\23\32","\112\69\228\223\44\100\232\113")).Remotes.RerollOrnament:InvokeServer(unpack(v30));v29=684 -(483 + 200) ;end if (v29==(1838 -(1045 + 791))) then if ((tostring(v31.ornamentId)==v7("\234\163\145\146\106\151","\30\222\146\161\162\90\174\210")) or (tostring(v31.ornamentId)==v7("\177\31\32\90\180\30","\106\133\46\16"))) then local v45=1463 -(1404 + 59) ;local v46;while true do if (v45==(0 -0)) then v46=v7("\118\47\125\249","\32\56\64\19\156\58");if (tostring(v31.ornamentId)==v7("\14\153\181\6\10\171","\224\58\168\133\54\58\146")) then v46=v7("\117\83\76\248\123\130\134\25\64","\107\57\54\43\157\21\230\231");elseif (tostring(v31.ornamentId)==v7("\143\218\65\165\232\140","\175\187\235\113\149\217\188")) then v46=v7("\14\174\136\66\225\118\111","\24\92\207\225\44\131\25");end v45=506 -(351 + 154) ;end if (v45==(2 -1)) then print(v7("\10\146\248\126\62\79\100\255\148\12\61\82\126\253\156\12\90\60\11\137\248","\29\43\179\216\44\123")   .. v46 );v23=true;break;end end end break;end end until v23 v22=267 -(28 + 238) ;end if (v22==(2 -1)) then print(v7("\142\218\50\69\173\205\96\95\169\214\48\92\184\221\96\13","\44\221\185\64"));break;end end end});v12=3 -0 ;end if (v12==(765 -(468 + 297))) then v13=loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))();if  not v13 then local v24=562 -(334 + 228) ;while true do if (v24==(0 + 0)) then error(v7("\247\194\210\41\227\191\135\10\222\131\215\42\231\191\135\10\217\198\155\10\244\178\200\16\253\202\217\101\234\178\197\12\208\209\194","\126\177\163\187\69\134\219\167"));return;end end end v12=1;end if (v12==(3 -2)) then local v14=0 -0 ;while true do if (v14==(0 + 0)) then v13=OrionLib:MakeWindow({[v7("\13\204\39\192","\156\67\173\74\165")]=v7("\0\165\72\18\185\109\98\33\167\76\86\143\37\84\61\167\93","\38\84\215\41\118\220\70"),[v7("\120\31\38\23\206\66\19\47\27\235\93","\158\48\118\66\114")]=false,[v7("\152\37\6\51\80\170\245\173\45\23","\155\203\68\112\86\19\197")]=true,[v7("\101\210\56\250\73\127\195\247\74\217\51\238","\152\38\189\86\156\32\24\133")]=v7("\203\82\169\66\249\91\132\64\251","\38\156\55\199"),[v7("\129\115\104\58\28\81\244\66\170\113\121\44","\35\200\29\28\72\115\20\154")]=false});v13=Window:MakeTab({[v7("\55\190\220\218","\84\121\223\177\191\237\76")]=v7("\137\89\197\172\119\100\49\195","\161\219\54\169\192\90\48\80"),[v7("\96\65\15\43","\69\41\34\96")]="rbxassetid://4483345998",[v7("\140\209\210\7\11\62\177\236\217\6\27","\75\220\163\183\106\98")]=false});v14=1;end if (v14==(471 -(381 + 89))) then v12=2 -0 ;break;end end end end end
+    -- Creating the main window
+    local Window = OrionLib:MakeWindow({
+        Name = "Trade+Dupe Script",
+        HidePremium = false,
+        SaveConfig = true,
+        ConfigFolder = "WendelCfg",
+        IntroEnabled = false
+    })
+
+    -- Table to store global variables
+    local G = {}
+
+    -- Creating the Player tab
+    local RollerTab = Window:MakeTab({
+        Name = "Roll-Tab",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
+    local RerollButton = RollerTab:AddButton({
+        Name = "Reroll Mask",
+        Callback = function()
+            local FoundReroll = false
+
+            repeat
+                local args = {
+                    [1] = 400001
+                }
+
+                local reroll = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(args))
+                wait(.1)
+                if tostring(reroll.ornamentId) ~= "410001" and
+                    tostring(reroll.ornamentId) ~= "410002" and
+                    tostring(reroll.ornamentId) ~= "410003" and
+                    tostring(reroll.ornamentId) ~= "410004" and
+                    tostring(reroll.ornamentId) ~= "410005" then
+                    print("Unknown reroll found ! : " .. tostring(reroll.ornamentId))
+                    FoundReroll = true
+                end
+
+                if tostring(reroll.ornamentId) == "410004" or
+                    tostring(reroll.ornamentId) == "410005" then
+                    local rerollname = "None"
+                    if tostring(reroll.ornamentId) == "410004" then
+                        rerollname = "Legendary"
+                    elseif tostring(reroll.ornamentId) == "410005" then
+                        rerollname = "Rainbow"
+                    end
+                    print("!! REROLL FOUND !! : " .. rerollname)
+                    FoundReroll = true
+                end
+            until FoundReroll
+            print("Script stopped !")
+        end
+    })
+
+
+local RerollButton = RollerTab:AddButton({
+        Name = "Reroll Awakening",
+        Callback = function()
+            local FoundReroll = false
+
+            repeat
+                local args = {
+                    [1] = 400002
+                }
+
+                local reroll = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(args))
+                wait(.1)
+                if tostring(reroll.ornamentId) ~= "410006" and
+                    tostring(reroll.ornamentId) ~= "410007" and
+                    tostring(reroll.ornamentId) ~= "410008" and
+                    tostring(reroll.ornamentId) ~= "410009" and
+                    tostring(reroll.ornamentId) ~= "410010" then
+                    print("Unknown reroll found ! : " .. tostring(reroll.ornamentId))
+                    FoundReroll = true
+                end
+
+                if tostring(reroll.ornamentId) == "410009" or
+                    tostring(reroll.ornamentId) == "410010" then
+                    local rerollname = "None"
+                    if tostring(reroll.ornamentId) == "410009" then
+                        rerollname = "Legendary"
+                    elseif tostring(reroll.ornamentId) == "410010" then
+                        rerollname = "Rainbow"
+                    end
+                    print("!! REROLL FOUND !! : " .. rerollname)
+                    FoundReroll = true
+                end
+            until FoundReroll
+            print("Script stopped !")
+        end
+    })
+
+local RerollButton = RollerTab:AddButton({
+        Name = "Reroll Ornament",
+        Callback = function()
+            local FoundReroll = false
+
+            repeat
+                local args = {
+                    [1] = 400003
+                }
+
+                local reroll = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(args))
+                wait(.1)
+                if tostring(reroll.ornamentId) ~= "410011" and
+                    tostring(reroll.ornamentId) ~= "410012" and
+                    tostring(reroll.ornamentId) ~= "410013" and
+                    tostring(reroll.ornamentId) ~= "410014" and
+                    tostring(reroll.ornamentId) ~= "410015" then
+                    print("Unknown reroll found ! : " .. tostring(reroll.ornamentId))
+                    FoundReroll = true
+                end
+
+                if tostring(reroll.ornamentId) == "410014" or
+                    tostring(reroll.ornamentId) == "410015" then
+                    local rerollname = "None"
+                    if tostring(reroll.ornamentId) == "410014" then
+                        rerollname = "Legendary"
+                    elseif tostring(reroll.ornamentId) == "410015" then
+                        rerollname = "Rainbow"
+                    end
+                    print("!! REROLL FOUND !! : " .. rerollname)
+                    FoundReroll = true
+                end
+            until FoundReroll
+            print("Script stopped !")
+        end
+    })
+
+
+local RerollButton = RollerTab:AddButton({
+        Name = "Reroll Awakening",
+        Callback = function()
+            local FoundReroll = false
+
+            repeat
+                local args = {
+                    [1] = 400005
+                }
+
+                local reroll = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(args))
+                wait(.1)
+                if tostring(reroll.ornamentId) ~= "410016" and
+                    tostring(reroll.ornamentId) ~= "410017" and
+                    tostring(reroll.ornamentId) ~= "410018" and
+                    tostring(reroll.ornamentId) ~= "410019" and
+                    tostring(reroll.ornamentId) ~= "410020" then
+                    print("Unknown reroll found ! : " .. tostring(reroll.ornamentId))
+                    FoundReroll = true
+                end
+
+                if tostring(reroll.ornamentId) == "410019" or
+                    tostring(reroll.ornamentId) == "410020" then
+                    local rerollname = "None"
+                    if tostring(reroll.ornamentId) == "410019" then
+                        rerollname = "Legendary"
+                    elseif tostring(reroll.ornamentId) == "410020" then
+                        rerollname = "Rainbow"
+                    end
+                    print("!! REROLL FOUND !! : " .. rerollname)
+                    FoundReroll = true
+                end
+            until FoundReroll
+            print("Script stopped !")
+        end
+    })
+
+
+end
