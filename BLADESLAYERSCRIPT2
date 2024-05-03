@@ -370,5 +370,4 @@ local AutoDungeonToggle =
                             end
                         end
                     end
-                end
-            end)
+            	end)
