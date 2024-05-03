@@ -142,7 +142,8 @@ PlayerTab:AddButton(
             getgenv().Settings.selectedPlayer = nil
         end
 })
-    PlayerTab:AddButton({
+  
+PlayerTab:AddButton({
         Name = "Dupe",
         Callback = function()
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy()
@@ -328,7 +329,7 @@ AutoRaidTab:AddButton({
             end
         end
     })
-})
+
 
     local gems = {
     { Name = "Lvl 3 Ruby",     Value = 10008 },
