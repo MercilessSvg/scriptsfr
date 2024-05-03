@@ -1,0 +1,752 @@
+-- Checking if the PlaceId condition is satisfied
+if game.PlaceId == 15744137588 then
+
+    -- Loading the OrionLib library
+    local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+    if not OrionLib then
+        error("Failed to load the OrionLib library")
+        return
+    end
+
+    -- Creating the main window
+    local Window = OrionLib:MakeWindow({
+        Name = "MercilessHub",
+        HidePremium = false,
+        SaveConfig = true,
+        ConfigFolder = "WendelCfg",
+        IntroEnabled = false
+    })
+
+getgenv().Settings = {
+        AutoAtk = false, -- Starting disabled
+        AutoDungeon = false, -- Starting disabled
+        AutoBuyGems = {
+            [10008] = false,
+            [10009] = false,
+            [10010] = false,
+            [10011] = false,
+            [10012] = false,
+            [10013] = false,
+            [10014] = false,
+            [10015] = false,
+            [10016] = false,
+         },
+	mespetsequiper = {},
+	Range = 200,
+	AutoFarm = true,
+	WalkToEnemy = false,
+	DamageBoost = false,
+    }
+
+    -- Auto-attack function
+    local function AutoAtk()
+        while G.AutoAtk do
+            -- Call the auto-attack event
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 75
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlayerClickAttack"):FireServer()
+            wait(0.01)
+        end
+    end
+
+    -- Creating the Player tab
+    local PlayerTab = Window:MakeTab({
+        Name = "Player",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
+    -- Creating the Scripts tab
+    local ScriptsTab = Window:MakeTab({
+        Name = "Scripts",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
+
+local AutoBuyTab = Window:MakeTab({
+        Name = "Shop",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
+ScriptsTab:AddToggle({
+    Name = "Kill Aura/Auto Collect",
+    Callback = function(state)
+        if state then
+            getgenv().Settings.AutoFarm = not getgenv().Settings.AutoFarm
+        end
+    end,
+})
+
+ScriptsTab:AddToggle({
+    Name = "Damage Boost",
+    Callback = function(state)
+        if state then
+          getgenv().Settings.DamageBoost = not getgenv().Settings.DamageBoost
+        end
+    end,
+})
+
+
+
+spawn(function()
+for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do
+v:Disable()
+end
+end)
+
+spawn(function()
+while wait(15) do
+local VirtualUser=game:service'VirtualUser'
+VirtualUser:CaptureController()
+VirtualUser:ClickButton2(Vector2.new())
+end
+end)
+
+    ScriptsTab:AddButton({
+        Name = "Auto Fuse Swords",
+        Callback = function()
+            while wait() do
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseWeapon"):FireServer()
+end
+        end
+    })
+
+local playerNames = {}
+for _, player in pairs(game.Players:GetPlayers()) do
+    table.insert(playerNames, player.Name)
+end
+
+PlayerTab:AddDropdown(
+    {
+        Name = "Select Player",
+        Options = playerNames,
+        Callback = function(selectedPlayer)
+            getgenv().Settings.selectedPlayer = selectedPlayer
+        end
+    }
+)
+
+PlayerTab:AddButton(
+    {
+        Name = "Trade Selected Player",
+        Callback = function()
+            if getgenv().Settings.selectedPlayer then
+                game:GetService("ReplicatedStorage").Remotes.SendTrade:InvokeServer(
+                    game:GetService("Players")[getgenv().Settings.selectedPlayer]
+                )
+            else
+                warn("No player selected.")
+            end
+        end
+    }
+)
+
+PlayerTab:AddButton(
+    {Name = "Refresh Player List", Callback = function()
+            playerNames = {}
+            for _, player in pairs(game.Players:GetPlayers()) do
+                table.insert(playerNames, player.Name)
+            end
+            PlayerTab:GetElement("Select Player"):UpdateOptions(playerNames)
+            getgenv().Settings.selectedPlayer = nil
+        end}
+)
+
+
+    PlayerTab:AddButton({
+        Name = "Anti-Lag",
+        Callback = function()
+        game.Lighting.ShadowSoftness = 0
+    end
+)
+spawn(
+    function()
+        local a = game:GetService("UserInputService")
+        local b = game:GetService("RunService")
+        local c = function()
+            b:Set3dRenderingEnabled(false)
+            setfpscap(10)
+            return
+        end
+        local d = function()
+            b:Set3dRenderingEnabled(true)
+            setfpscap(60)
+            return
+        end
+        local e = function()
+            a.WindowFocusReleased:Connect(c)
+            a.WindowFocused:Connect(d)
+            return
+        end
+        e()
+    end
+)
+spawn(
+    function()
+        pcall(
+            function()
+                wait(3)
+                local f = game
+                local g = f.Workspace
+                local h = f.Lighting
+                local i = g.Terrain
+                i.WaterWaveSize = 0
+                i.WaterWaveSpeed = 0
+                i.WaterReflectance = 0
+                i.WaterTransparency = 0
+                h.GlobalShadows = false
+                h.FogEnd = 9e9
+                h.Brightness = 0
+                settings().Rendering.QualityLevel = "Level01"
+                for j, k in pairs(f:GetDescendants()) do
+                    if k:IsA("Part") or k:IsA("Union") or k:IsA("CornerWedgePart") or k:IsA("TrussPart") then
+                        k.Reflectance = 0
+                    elseif k:IsA("ParticleEmitter") or k:IsA("Trail") then
+                        k.Lifetime = NumberRange.new(0)
+                    elseif k:IsA("Explosion") then
+                        k.BlastPressure = 0
+                        k.BlastRadius = 0
+                    elseif k:IsA("Fire") or k:IsA("SpotLight") or k:IsA("Smoke") or k:IsA("Sparkles") then
+                        k.Enabled = false
+                    elseif k:IsA("MeshPart") then
+                        k.Material = "Plastic"
+                        k.Reflectance = 0
+                    end
+                end
+                for j, l in pairs(h:GetChildren()) do
+                    if
+                        l:IsA("BlurEffect") or l:IsA("SunRaysEffect") or l:IsA("ColorCorrectionEffect") or
+                            l:IsA("BloomEffect") or
+                            l:IsA("DepthOfFieldEffect")
+                     then
+                        l.Enabled = false
+                    end
+                end
+                sethiddenproperty(game.Lighting, "Technology", "Compatibility")
+            end
+        )
+end)
+
+        end
+    })
+
+    PlayerTab:AddButton({
+        Name = "Dupe",
+        Callback = function()
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy()
+    end
+})
+
+autoGainPower = false
+autoGainPowerLoop = nil
+fireDelay = 0.1 -- Delay in seconds
+
+ScriptsTab:AddToggle({
+    Name = "AutoGainPower",
+    Default = false,
+    Callback = function(Value)
+        autoGainPower = Value
+        print("Auto Gain Pwr is " .. tostring(autoGainPower))
+
+        if autoGainPower then
+            autoGainPowerLoop = game:GetService("RunService").Heartbeat:Connect(function()
+                local remotes = game:GetService("ReplicatedStorage"):FindFirstChild("Remotes")
+                if remotes and remotes:FindFirstChild("PlayerClickAttack") then
+                    remotes.PlayerClickAttack:FireServer()
+                end
+                wait(fireDelay)
+            end)
+        else
+            if autoGainPowerLoop then
+                autoGainPowerLoop:Disconnect()
+                autoGainPowerLoop = nil
+            end
+        end
+    end
+})
+
+    ScriptsTab:AddButton({
+        Name = "SimpleSpy",
+        Callback = function()
+            loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpyBeta.lua"))()
+        end
+    })
+
+
+    -- Creating the Auto-Dungeon tab
+    local AutoDungeonTab = Window:MakeTab({
+        Name = "Auto-Dungeon",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
+        -- Creating the Player tab
+    local FuseTab = Window:MakeTab({
+        Name = "Auto-FuseGem",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+ 
+local function a(b)
+    local c = game.Players.LocalPlayer
+    local d = c:WaitForChild("PlayerGui")
+    local e = d:WaitForChild("GemsPanel")
+    local f = e:WaitForChild("Frame")
+    local g = f:WaitForChild("BgImage")
+    local h = g:WaitForChild("List")
+    local i = h:WaitForChild("ScrollingFrame")
+    local j, k, l, m, n
+    if i then
+        local o = 0
+        for p, q in ipairs(i:GetChildren()) do
+            if o >= 5 then
+                break
+            end
+            local r = q:FindFirstChild("NumText")
+            if r and r.Text == "Lv." .. b then
+                o = o + 1
+                if o == 1 then
+                    j = q.Name
+                elseif o == 2 then
+                    k = q.Name
+                elseif o == 3 then
+                    l = q.Name
+                elseif o == 4 then
+                    m = q.Name
+                elseif o == 5 then
+                    n = q.Name
+                end
+            end
+        end
+        if o > 0 then
+            print("Gem IDs found:")
+            print("gem1:", j)
+            print("gem2:", k)
+            print("gem3:", l)
+            print("gem4:", m)
+            print("gem5:", n)
+        else
+            print("No gem IDs found.")
+        end
+    else
+        error("Error: ScrollingFrame not found.")
+    end
+    return j, k, l, m, n
+end
+local function s(b)
+    while true do
+        local j, k, l, m, n = a(b)
+        if j and k and l and m and n then
+            local t = {[1] = {[1] = j, [2] = k, [3] = l, [4] = m, [5] = n}}
+            print("Invoking FuseGem remote with args:", t)
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseGem"):InvokeServer(unpack(t))
+        else
+            print("Error: Could not find five gem IDs.")
+        end
+        wait(0.1)
+    end
+end
+for u = 1, 9 do
+    FuseTab:AddToggle(
+        {Name = "Auto Fuse Lvl " .. u .. " Gems", Default = false, Callback = function(v)
+                G["AutoFuseGemsLevel" .. u] = v
+                if v then
+                    while G["AutoFuseGemsLevel" .. u] do
+                        s(u)
+                    end
+                end
+            end}
+    )
+end
+
+    -- Creating the Auto-Dungeon tab
+    local AutoRaidTab = Window:MakeTab({
+        Name = "Auto-Raid",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
+AutoRaidTab:AddButton({
+        Name = "AutoCollectChestInRaid",
+        Callback = function()
+            loadstring(game:HttpGet('https://raw.githubusercontent.com/xALLQWT/AUTORAID/main/g'))() 
+        end
+    })
+
+
+    -- Creating the difficulty dropdown
+    local difficultyDropdown = AutoRaidTab:AddDropdown({
+        Name = "Difficulty",
+        Options = {"Easy", "Medium", "Hard", "Impossible"},
+        CurrentOption = "1",
+        Callback = function(option)
+            G.difficulty = tonumber(option)
+        end
+    })
+
+    -- Creating the Auto-Raid toggle
+    local AutoRaidToggle = AutoRaidTab:AddToggle({
+        Name = "Auto-Raid",
+        Default = false,
+        Callback = function(Value)
+            if Value then
+                -- Function to restart the script
+                local function restartScript()
+                    -- Your existing script content
+                    -- Get the local player's user ID
+                    local userID = game.Players.LocalPlayer.UserId
+
+                    -- Create a table of arguments for the 'EnterRaidRoom' remote event
+                    local args = {
+                        [1] = "Room3"
+                    }
+
+                    -- Call the 'EnterRaidRoom' remote event
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnterRaidRoom"):FireServer(unpack(args))
+
+                    -- Create a table of arguments for the 'SelectRaidsDifficulty' remote event
+                    args = {
+                        [1] = {
+                            ["difficulty"] = G.difficulty,
+                            ["roomName"] = "Room3",
+                            ["selectMapId"] = 50105
+                        }
+                    }
+
+                    -- Call the 'SelectRaidsDifficulty' remote event
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SelectRaidsDifficulty"):FireServer(unpack(args))
+
+                    -- Create a table of arguments for the 'StartChallengeRaidMap' remote event
+                    args = {
+                        [1] = {
+                            ["userIds"] = {
+                                [1] = userID
+                            },
+                            ["roomName"] = "Room3"
+                        }
+                    }
+
+                    -- Call the 'StartChallengeRaidMap' remote event
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StartChallengeRaidMap"):InvokeServer(unpack(args))
+
+                    -- Call the 'LocalPlayerTeleportSuccess' remote event
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleportSuccess"):InvokeServer()
+
+                    -- Wait for 240 seconds
+                    wait(240)
+
+                    -- Create a table of arguments for the 'QuitRaidsMap' remote event
+                    args = {
+                        [1] = {
+                            ["currentSlotIndex"] = 1,
+                            ["toMapId"] = 50201
+                        }
+                    }
+
+                    -- Call the 'QuitRaidsMap' remote event
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuitRaidsMap"):InvokeServer(unpack(args))
+
+                    -- Wait for 60 seconds before restarting the script
+                    wait(60)
+
+                    -- Restart the script
+                    restartScript()
+                end
+
+                -- Start the raid
+                restartScript()
+            end
+        end
+    })
+
+})
+
+  -- Adding AutoBuyGem toggles
+    AutoBuyTab:AddToggle({
+        Name = "AutoBuy Lvl 3 Ruby",
+        Default = false,
+        Callback = function(Value)
+            G.AutoBuyGems[10008] = Value
+            if Value then
+                while G.AutoBuyGems[10008] do
+                    local args = {
+                        [1] = 10008
+                    }
+ 
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
+                    wait(1) -- Adjust the delay as needed
+                end
+            end
+        end,
+    })
+ 
+    AutoBuyTab:AddToggle({
+        Name = "AutoBuy Lvl 3 Sapphire",
+        Default = false,
+        Callback = function(Value)
+            G.AutoBuyGems[10009] = Value
+            if Value then
+                while G.AutoBuyGems[10009] do
+                    local args = {
+                        [1] = 10009
+                    }
+ 
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
+                    wait(1) -- Adjust the delay as needed
+                end
+            end
+        end,
+    })
+ 
+    AutoBuyTab:AddToggle({
+        Name = "AutoBuy Lvl 3 Emerald",
+        Default = false,
+        Callback = function(Value)
+            G.AutoBuyGems[10010] = Value
+            if Value then
+                while G.AutoBuyGems[10010] do
+                    local args = {
+                        [1] = 10010
+                    }
+ 
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
+                    wait(1) -- Adjust the delay as needed
+                end
+            end
+        end,
+    })
+ 
+    AutoBuyTab:AddToggle({
+        Name = "AutoBuy Lvl 5 Ruby",
+        Default = false,
+        Callback = function(Value)
+            G.AutoBuyGems[10011] = Value
+            if Value then
+                while G.AutoBuyGems[10011] do
+                    local args = {
+                        [1] = 10011
+                    }
+ 
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
+                    wait(1) -- Adjust the delay as needed
+                end
+            end
+       end,
+    })
+ 
+    AutoBuyTab:AddToggle({
+        Name = "AutoBuy Lvl 5 Sapphire",
+        Default = false,
+        Callback = function(Value)
+            G.AutoBuyGems[10012] = Value
+            if Value then
+                while G.AutoBuyGems[10012] do
+                    local args = {
+                        [1] = 10012
+                    }
+ 
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
+                    wait(1) -- Adjust the delay as needed
+                end
+            end
+        end,
+    })
+ 
+    AutoBuyTab:AddToggle({
+        Name = "AutoBuy Lvl 5 Emerald",
+        Default = false,
+        Callback = function(Value)
+            G.AutoBuyGems[10013] = Value
+            if Value then
+                while G.AutoBuyGems[10013] do
+                    local args = {
+                        [1] = 10013
+                    }
+ 
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
+                    wait(1) -- Adjust the delay as needed
+                end
+            end
+        end,
+    })
+ 
+    AutoBuyTab:AddToggle({
+        Name = "AutoBuy Lvl 7 Ruby",
+        Default = false,
+        Callback = function(Value)
+            G.AutoBuyGems[10014] = Value
+            if Value then
+                while G.AutoBuyGems[10014] do
+                    local args = {
+                        [1] = 10014
+                    }
+ 
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
+                    wait(1) -- Adjust the delay as needed
+                end
+            end
+        end,
+    })
+ 
+    AutoBuyTab:AddToggle({
+        Name = "AutoBuy Lvl 7 Sapphire",
+        Default = false,
+        Callback = function(Value)
+            G.AutoBuyGems[10015] = Value
+            if Value then
+                while G.AutoBuyGems[10015] do
+                    local args = {
+                        [1] = 10015
+                    }
+ 
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
+                    wait(1) -- Adjust the delay as needed
+                end
+            end
+        end,
+    })
+ 
+    AutoBuyTab:AddToggle({
+        Name = "AutoBuy Lvl 7 Emerald",
+        Default = false,
+        Callback = function(Value)
+            G.AutoBuyGems[10016] = Value
+            if Value then
+                while G.AutoBuyGems[10016] do
+                    local args = {
+                        [1] = 10016
+                    }
+ 
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("MapShopExchange"):FireServer(unpack(args))
+                    wait(1) -- Adjust the delay as needed
+                end
+            end
+        end,
+    })
+
+ -- Adding a section for Auto-Dungeon in the Auto-Dungeon tab
+    AutoDungeonTab:AddSection({Name = "Auto-Dungeon"})
+
+-- Define a function to teleport the player to a specific dungeon and back
+local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
+    -- Teleport the player to the specified dungeon
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({
+        ["mapId"] = dungeonMapId
+    })
+
+    -- Wait for the specified return time
+    wait(returnTime)
+
+    -- Teleport the player back to the original map
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer({
+        ["mapId"] = returnMapId
+    })
+end
+
+-- Define a toggle button to enable/disable auto-dungeon teleporting
+local AutoDungeonToggle = AutoDungeonTab:AddToggle({
+    Name = "Auto-Dungeon(FINALLY FIXED!!!)",
+    Default = false,
+    Callback = function(Value)
+        if Value then
+            -- Start the auto-dungeon teleporting loop
+            while true do
+                -- Get the current time
+                local currentTime = os.time()
+
+                -- Calculate the time for the next dungeon teleport (15 seconds before each 30 minutes)
+                local nextTeleportTime = math.ceil(currentTime / (30 * 60)) * (30 * 60) - 15
+
+                -- Calculate the wait time until the next dungeon teleport
+                local waitTime = nextTeleportTime - currentTime
+
+                -- Wait until the next dungeon teleport time
+                wait(waitTime)
+
+                -- Teleport to the dungeon
+                TeleportToAndFromDungeon(50016, 50001, 15 * 60)
+            end
+        end
+    end
+})
+
+            spawn(function()
+                while wait(1) do
+                    for _, v in pairs(game.Workspace.Golds:GetChildren()) do
+                        v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                    end
+                end
+            end)
+
+            local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+            pcall(function()
+                for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
+                    if v.isEquip == true then
+                        table.insert(getgenv().Settings.mespetsequiper, v.guid)
+                    end
+                end
+            end)
+
+            spawn(function()
+                local function Getenemies()
+                    local nearest, dist = nil, getgenv().Settings.Range
+                    local Players = game.Players
+                    local localPlayer = Players.LocalPlayer
+                    local localCharacter = localPlayer.Character
+                    local humanoidRootPart = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart")
+                    if not humanoidRootPart then return end
+
+                    for _, enemy in pairs(Workspace.Enemys:GetChildren()) do
+                        if enemy:FindFirstChild("HumanoidRootPart") and enemy.HumanoidRootPart:FindFirstChild("EnemyNameGui") and enemy.HumanoidRootPart.EnemyNameGui.HealthNum.Text ~= "0" then
+                            local distance = (humanoidRootPart.Position - enemy.HumanoidRootPart.Position).magnitude
+                            if distance < dist then
+                                dist = distance
+                                nearest = enemy
+                            end
+                        end
+                    end
+                    return nearest
+                end
+
+                while task.wait() do
+                    if getgenv().Settings.AutoFarm then
+                        local nearestEnemy = Getenemies()
+
+                        if nearestEnemy then
+                            spawn(function()
+                                if getgenv().Settings.WalkToEnemy then
+                                    if nearestEnemy:FindFirstChild("HumanoidRootPart") then
+                                        player.Character.Humanoid:MoveTo(nearestEnemy.HumanoidRootPart.Position)
+                                    end
+                                end
+                            end)
+
+                            spawn(function()
+                                local args = { nearestEnemy:GetAttribute("EnemyGuid") }
+                                game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args))
+                                game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args))
+                            end)
+
+                            if getgenv().Settings.DamageBoost then
+                                for c, d in pairs(getgenv().Settings.mespetsequiper) do
+                                    local a = { [1] = { ["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
+                                    game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a))
+                                end
+                            end
+                        end
+                    end
+                end
+            end)
+
+ScriptsTab:AddSlider(
+    {Name = "Range (50-1000)", Min = 50,  
+     Max = 1000,  
+     Default = 50, 
+     Callback = function(value)
+            getgenv().Settings.Range = value
+        end}
+)
+
+
+end
