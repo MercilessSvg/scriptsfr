@@ -330,7 +330,6 @@ AutoRaidTab:AddButton({
         end
     })
 
-
     local gems = {
     { Name = "Lvl 3 Ruby",     Value = 10008 },
     { Name = "Lvl 3 Sapphire", Value = 10009 },
@@ -467,4 +466,5 @@ local AutoDungeonToggle =
                     end
                 end
             end)
-	end
+	
+end
