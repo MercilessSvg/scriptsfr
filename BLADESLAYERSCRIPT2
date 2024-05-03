@@ -326,7 +326,8 @@ local AutoDungeonToggle =
                     end
                 end
             end)
-            pawn(function()
+
+            spawn(function()
                 local function Getenemies()
                     local nearest, dist = nil, getgenv().Settings.Range
                     local Players = game.Players
