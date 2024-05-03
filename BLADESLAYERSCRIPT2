@@ -368,13 +368,10 @@ local AutoDungeonToggle =
                                 game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a))
                         	local a = { [1] = { ["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200004 } }
                                 game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a))
-                            end
-                         end
-			end
-			end)
-                else
-                    game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer()
                 end
-            end
-        end
-    end)
+        	end
+		end
+		end)
+                end
+            	end
+    		end)
