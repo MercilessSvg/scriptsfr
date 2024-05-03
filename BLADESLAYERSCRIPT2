@@ -1,9 +1,8 @@
-    local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+   local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
     if not OrionLib then
         error("Failed to load the OrionLib library")
         return
     end
-
 local Window = OrionLib:MakeWindow({
         Name = "MercilessHub",
         HidePremium = false,
@@ -11,7 +10,6 @@ local Window = OrionLib:MakeWindow({
         ConfigFolder = "WendelCfg",
         IntroEnabled = false
     })
-
 getgenv().Settings = {
         AutoAtk = false, 
         AutoDungeon = false, 
@@ -32,7 +30,6 @@ getgenv().Settings = {
 	WalkToEnemy = false,
 	DamageBoost = false,
     }
-
     local function AutoAtk()
         while G.AutoAtk do
             game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 75
@@ -40,26 +37,21 @@ getgenv().Settings = {
             wait(0.01)
         end
     end
-
     local PlayerTab = Window:MakeTab({
         Name = "Player",
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
     })
-
     local ScriptsTab = Window:MakeTab({
         Name = "Scripts",
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
     })
-
-
 local AutoBuyTab = Window:MakeTab({
         Name = "Shop",
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
     })
-
 ScriptsTab:AddToggle({
     Name = "Kill Aura/Auto Collect",
     Callback = function(state)
@@ -68,7 +60,6 @@ ScriptsTab:AddToggle({
         end
     end,
 })
-
 ScriptsTab:AddToggle({
     Name = "Damage Boost",
     Callback = function(state)
@@ -77,15 +68,12 @@ ScriptsTab:AddToggle({
         end
     end,
 })
-
 --Anti-AFk
-
 spawn(function()
 for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do
 v:Disable()
 end
 end)
-
 spawn(function()
 while wait(15) do
 local VirtualUser=game:service'VirtualUser'
@@ -93,7 +81,6 @@ VirtualUser:CaptureController()
 VirtualUser:ClickButton2(Vector2.new())
 end
 end)
-
     ScriptsTab:AddButton({
         Name = "Auto Fuse Swords",
         Callback = function()
@@ -102,12 +89,10 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseW
 end
         end
     })
-
 local playerNames = {}
 for _, player in pairs(game.Players:GetPlayers()) do
     table.insert(playerNames, player.Name)
 end
-
 PlayerTab:AddDropdown(
     {
         Name = "Select Player",
@@ -117,7 +102,6 @@ PlayerTab:AddDropdown(
         end
     }
 )
-
 PlayerTab:AddButton(
     {
         Name = "Trade Selected Player",
@@ -149,7 +133,6 @@ PlayerTab:AddButton({
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DeleteMultipleHero"):Destroy()
     end
 })
-
 autoGainPower = false
 autoGainPowerLoop = nil
 fireDelay = 0.1 
@@ -159,7 +142,6 @@ ScriptsTab:AddToggle({
     Callback = function(Value)
         autoGainPower = Value
         print("Auto Gain Pwr is " .. tostring(autoGainPower))
-
         if autoGainPower then
             autoGainPowerLoop = game:GetService("RunService").Heartbeat:Connect(function()
                 local remotes = game:GetService("ReplicatedStorage"):FindFirstChild("Remotes")
@@ -187,13 +169,11 @@ ScriptsTab:AddToggle({
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
     })
-
     local FuseTab = Window:MakeTab({
         Name = "Auto-FuseGem",
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
     })
-
     local GemScript = Window:MakeTab({
         Name = "Op-Gem Script",
         Icon = "rbxassetid://4483345998",
@@ -207,14 +187,12 @@ local AutoRaidTab = Window:MakeTab({
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
     })
-
 AutoRaidTab:AddButton({
         Name = "AutoCollectChestInRaid",
         Callback = function()
             loadstring(game:HttpGet('https://raw.githubusercontent.com/xALLQWT/AUTORAID/main/g'))() 
         end
     })
-
     local difficultyDropdown = AutoRaidTab:AddDropdown({
         Name = "Difficulty",
         Options = {"Easy", "Medium", "Hard", "Impossible"},
@@ -223,7 +201,6 @@ AutoRaidTab:AddButton({
             G.difficulty = tonumber(option)
         end
     })
-
     local AutoRaidToggle = AutoRaidTab:AddToggle({
         Name = "Auto-Raid",
         Default = false,
@@ -268,7 +245,6 @@ AutoRaidTab:AddButton({
             end
         end
     })
-
     local gems = {
     { Name = "Lvl 3 Ruby",     Value = 10008 },
     { Name = "Lvl 3 Sapphire", Value = 10009 },
@@ -280,7 +256,6 @@ AutoRaidTab:AddButton({
     { Name = "Lvl 7 Sapphire", Value = 10015 },
     { Name = "Lvl 7 Emerald",  Value = 10016 }
 }
-
 local dropdown = AutoBuyTab:AddDropdown({
     Name = "AutoBuy Gem",
     Default = gems[1].Value,
@@ -291,11 +266,9 @@ local dropdown = AutoBuyTab:AddDropdown({
         end
     end,
 })
-
 for _, gem in ipairs(gems) do
     dropdown.Options[gem.Name] = gem.Value
 end
-
 AutoBuyTab:AddToggle({
     Name = "AutoBuy Enabled",
     Default = false,
@@ -305,7 +278,6 @@ AutoBuyTab:AddToggle({
         end
     end,
 })
-
 local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
     -- Teleport the player to the specified dungeon
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(
@@ -339,34 +311,32 @@ local AutoDungeonToggle =
     }
 )
            
-            spawn(function()
-                while wait(0.1) do
+		spawn(function()
+                while wait(1) do
                     for _, v in pairs(game.Workspace.Golds:GetChildren()) do
                         v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
                     end
                 end
             end)
-
-            local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+		local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
             pcall(function()
                 for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
                     if v.isEquip == true then
-                        table.insert(_G.mespetsequiper, v.guid)
+                        table.insert(getgenv().Settings.mespetsequiper, v.guid)
                     end
                 end
             end)
 
             spawn(function()
-                local function getNearestChest()
-                    local nearest, dist = nil, _G.Range
+                local function Getenemies()
+                    local nearest, dist = nil, getgenv().Settings.Range
                     local Players = game.Players
                     local localPlayer = Players.LocalPlayer
                     local localCharacter = localPlayer.Character
                     local humanoidRootPart = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart")
                     if not humanoidRootPart then return end
-
                     for _, enemy in pairs(Workspace.Enemys:GetChildren()) do
-                        if enemy:FindFirstChild("HumanoidRootPart") and enemy.HumanoidRootPart:FindFirstChild("EnemyNameGui") and          enemy.HumanoidRootPart.EnemyNameGui.HealthNum.Text ~= "0" then
+                        if enemy:FindFirstChild("HumanoidRootPart") and enemy.HumanoidRootPart:FindFirstChild("EnemyNameGui") and enemy.HumanoidRootPart.EnemyNameGui.HealthNum.Text ~= "0" then
                             local distance = (humanoidRootPart.Position - enemy.HumanoidRootPart.Position).magnitude
                             if distance < dist then
                                 dist = distance
@@ -376,11 +346,9 @@ local AutoDungeonToggle =
                     end
                     return nearest
                 end
-
                 while task.wait() do
                     if getgenv().Settings.AutoFarm then
-                        local nearestEnemy = getNearestChest()
-
+                        local nearestEnemy = Getenemies()
                         if nearestEnemy then
                             spawn(function()
                                 if getgenv().Settings.WalkToEnemy then
@@ -389,16 +357,24 @@ local AutoDungeonToggle =
                                     end
                                 end
                             end)
-
                             spawn(function()
                                 local args = { nearestEnemy:GetAttribute("EnemyGuid") }
                                 game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args))
                                 game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args))
                             end)
+			end
+
+	local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+            pcall(function()
+                for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
+                    if v.isEquip == true then
+                        table.insert(getgenv().Settings.mespetsequiper, v.guid)
+                    end
+                end
+            end)
 
 
-                        
-    			if getgenv().Settings.DamageBoost then
+    	if getgenv().Settings.DamageBoost then
                                 for c, d in pairs(getgenv().Settings.mespetsequiper) do
                                     local a = { [1] = { ["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
                                     game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a))
