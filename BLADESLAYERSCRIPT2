@@ -28,7 +28,7 @@ getgenv().Settings = {
          },
 	mespetsequiper = {},
 	Range = 200,
-	AutoFarm = true,
+	AutoFarm = false,
 	WalkToEnemy = false,
 	DamageBoost = false,
     }
