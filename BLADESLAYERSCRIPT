@@ -1,6 +1,3 @@
--- Checking if the PlaceId condition is satisfied
-if game.PlaceId == 15744137588 then
-
     -- Loading the OrionLib library
     local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
     if not OrionLib then
@@ -68,6 +65,13 @@ if game.PlaceId == 15744137588 then
     -- Creating the Player tab
     local PlayerTab = Window:MakeTab({
         Name = "Player",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+   
+-- Creating the Player tab
+    local RollTab = Window:MakeTab({
+        Name = "Auto-Roll",
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
     })
@@ -306,6 +310,50 @@ if game.PlaceId == 15744137588 then
         })
     end
 
+    local RollTab = Window:MakeTab({
+        Name = "Auto-Roll",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
+
+local RollTab:AddButton({
+        Name = "Auto Roll Trail",
+        Callback = function()
+        
+        FoundReroll = false
+        repeat
+        local args = {
+        [1] = 400004
+                     }
+
+local reroll = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(args))
+wait(.1)
+    if tostring(reroll.ornamentId) ~= "410016" and
+    tostring(reroll.ornamentId) ~= "410017" and
+    tostring(reroll.ornamentId) ~= "410018" and
+    tostring(reroll.ornamentId) ~= "410019" and
+    tostring(reroll.ornamentId) ~= "410020" then
+        print("Unknown reroll found ! : " .. tostring(reroll.ornamentId))
+        FoundReroll = true
+    end
+
+    if tostring(reroll.ornamentId) == "410018" or
+        tostring(reroll.ornamentId) == "410019" or if tostring(reroll.ornamentId) == "410020" then
+        local rerollname = "None"
+if tostring(reroll.ornamentId) == "410018" then
+            rerollname = "Epic"
+elseif tostring(reroll.ornamentId) == "410019" then
+            rerollname = "Legendary"
+        elseif tostring(reroll.ornamentId) == "410020" then
+            rerollname = "Rainbow"
+        end
+        print("!! REROLL FOUND !! : " .. rerollname)
+        FoundReroll = true
+    end
+until FoundReroll
+    })
+    
     -- Creating the Auto-Dungeon tab
     local AutoRaidTab = Window:MakeTab({
         Name = "Auto-Raid",
@@ -664,11 +712,5 @@ ScriptsTab:AddToggle({
     end
 })
 
-ScriptsTab:AddTextbox({
-    Name = "Range(50-1000)",
-    Default = "Input Range",
-    Callback = function(value)
-        getgenv().Settings.Range = value
-    end
-})
+
 end
