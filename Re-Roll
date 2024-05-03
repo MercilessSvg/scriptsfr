@@ -141,13 +141,13 @@ local RerollButton = RollerTab:AddButton({
 
 
 local RerollButton = RollerTab:AddButton({
-        Name = "Reroll Awakening",
+        Name = "Reroll Trail",
         Callback = function()
             local FoundReroll = false
 
             repeat
                 local args = {
-                    [1] = 400005
+                    [1] = 400004
                 }
 
                 local reroll = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(args))
