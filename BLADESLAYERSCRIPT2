@@ -200,70 +200,9 @@ ScriptsTab:AddToggle({
         PremiumOnly = true
     })
  
-local function a()
-    local c = game.Players.LocalPlayer
-    local d = c:WaitForChild("PlayerGui")
-    local e = d:WaitForChild("GemsPanel")
-    local f = e:WaitForChild("Frame")
-    local g = f:WaitForChild("BgImage")
-    local h = g:FindFirstChild("List")
-    local i = h:FindFirstChild("ScrollingFrame")
-    local gemIds = {}
-    if i then
-        for p, q in ipairs(i:GetChildren()) do
-            local r = q:FindFirstChild("NumText")
-            if r then
-                table.insert(gemIds, q.Name)
-            end
-        end
-        if #gemIds > 0 then
-            print("Gem IDs found:")
-            for k, v in ipairs(gemIds) do
-                print("gem".. k.. ":", v)
-            end
-        else
-            print("No gem IDs found.")
-        end
-    else
-        error("Error: ScrollingFrame not found.")
-    end
-    return gemIds
-end
-
-local function s(gemIds)
-    while true do
-        if #gemIds >= 5 then
-            local t = {}
-            for k, v in ipairs(gemIds) do
-                table.insert(t, {v})
-            end
-            print("Invoking FuseGem remote with args:", t)
-            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseGem"):InvokeServer(unpack(t))
-            table.remove(gemIds, 1)
-            table.remove(gemIds, 1)
-            table.remove(gemIds, 1)
-            table.remove(gemIds, 1)
-            table.remove(gemIds, 1)
-        else
-            print("Not enough gems to fuse.")
-        end
-        wait(0.1)
-    end
-end
-
-FuseTab:AddToggle(
-    {Name = "Auto Fuse All Gems", Default = false, Callback = function(v)
-        G["AutoFuseAllGems"] = v
-        if v then
-            local gemIds = a()
-            while G["AutoFuseAllGems"] do
-                s(gemIds)
-            end
-        end
-    end}
-)
-
-    local AutoRaidTab = Window:MakeTab({
+local function a(b)local c=game.Players.LocalPlayer;local d=c:WaitForChild("PlayerGui")local e=d:WaitForChild("GemsPanel")local f=e:WaitForChild("Frame")local g=f:WaitForChild("BgImage")local h=g:WaitForChild("List")local i=h:WaitForChild("ScrollingFrame")local j,k,l,m,n;if i then local o=0;for p,q in ipairs(i:GetChildren())do if o>=5 then break end;local r=q:FindFirstChild("NumText")if r and r.Text=="Lv."..b then o=o+1;if o==1 then j=q.Name elseif o==2 then k=q.Name elseif o==3 then l=q.Name elseif o==4 then m=q.Name elseif o==5 then n=q.Name end end end;if o>0 then print("Gem IDs found:")print("gem1:",j)print("gem2:",k)print("gem3:",l)print("gem4:",m)print("gem5:",n)else print("No gem IDs found.")end else error("Error: ScrollingFrame not found.")end;return j,k,l,m,n end;local function s(b)while true do local j,k,l,m,n=a(b)if j and k and l and m and n then local t={[1]={[1]=j,[2]=k,[3]=l,[4]=m,[5]=n}}print("Invoking FuseGem remote with args:",t)game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseGem"):InvokeServer(unpack(t))else print("Error: Could not find five gem IDs.")end;wait(0.1)end end;for u=1,9 do FuseTab:AddToggle({Name="Auto Fuse Lvl "..u.." Gems",Default=false,Callback=function(v)getgenv().Settings["AutoFuseGemsLevel"..u]=v;if v then while getgenv().Settings["AutoFuseGemsLevel"..u]do s(u)end end end})end
+    
+local AutoRaidTab = Window:MakeTab({
         Name = "Auto-Raid",
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
