@@ -147,8 +147,6 @@ PlayerTab:AddButton(
         Callback = function()
         game.Lighting.ShadowSoftness = 0
     end
-})
-
 spawn(
     function()
         local a = game:GetService("UserInputService")
@@ -169,8 +167,7 @@ spawn(
             return
         end
         e()
-    end
-)
+    end)
 spawn(
     function()
         pcall(
@@ -217,6 +214,7 @@ spawn(
         )
 end)
         end})
+
     PlayerTab:AddButton({
         Name = "Dupe",
         Callback = function()
