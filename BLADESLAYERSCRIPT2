@@ -140,14 +140,15 @@ PlayerTab:AddButton(
             end
             PlayerTab:GetElement("Select Player"):UpdateOptions(playerNames)
             getgenv().Settings.selectedPlayer = nil
-        end}
-)
+        end
+})
     PlayerTab:AddButton({
         Name = "Anti-Lag",
         Callback = function()
         game.Lighting.ShadowSoftness = 0
     end
 })
+
 spawn(
     function()
         local a = game:GetService("UserInputService")
