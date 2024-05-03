@@ -338,19 +338,11 @@ local AutoDungeonToggle =
         end
     }
 )
-            spawn(function()
+           
+		spawn(function()
                 while wait(1) do
                     for _, v in pairs(game.Workspace.Golds:GetChildren()) do
                         v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-                    end
-                end
-            end)
-
-            local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
-            pcall(function()
-                for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
-                    if v.isEquip == true then
-                        table.insert(getgenv().Settings.mespetsequiper, v.guid)
                     end
                 end
             end)
@@ -388,14 +380,23 @@ local AutoDungeonToggle =
                                     end
                                 end
                             end)
-
                             spawn(function()
                                 local args = { nearestEnemy:GetAttribute("EnemyGuid") }
                                 game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args))
                                 game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args))
                             end)
 			end
-                            if getgenv().Settings.DamageBoost then
+
+	local WeaponsInventory = require(game:GetService("ReplicatedStorage").Scripts.Client.Manager.PlayerManager)
+            pcall(function()
+                for _, v in pairs(WeaponsInventory.localPlayerData.heros) do
+                    if v.isEquip == true then
+                        table.insert(getgenv().Settings.mespetsequiper, v.guid)
+                    end
+                end
+            end)
+                        
+    	if getgenv().Settings.DamageBoost then
                                 for c, d in pairs(getgenv().Settings.mespetsequiper) do
                                     local a = { [1] = { ["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
                                     game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a))
