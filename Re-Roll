@@ -1,0 +1,179 @@
+-- Checking if the PlaceId condition is satisfied
+if game.PlaceId == 15744137588 then
+
+    -- Loading the OrionLib library
+    local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+    if not OrionLib then
+        error("Failed to load the OrionLib library")
+        return
+    end
+
+    -- Creating the main window
+    local Window = OrionLib:MakeWindow({
+        Name = "Trade+Dupe Script",
+        HidePremium = false,
+        SaveConfig = true,
+        ConfigFolder = "WendelCfg",
+        IntroEnabled = false
+    })
+
+    -- Table to store global variables
+    local G = {}
+
+    -- Creating the Player tab
+    local RollerTab = Window:MakeTab({
+        Name = "Roll-Tab",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
+    local RerollButton = RollerTab:AddButton({
+        Name = "Reroll Mask",
+        Callback = function()
+            local FoundReroll1 = false
+
+            repeat
+                local args = {
+                    [1] = 400001
+                }
+
+                local reroll = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(args))
+                wait(.1)
+                if tostring(reroll.ornamentId) ~= "410001" and
+                    tostring(reroll.ornamentId) ~= "410002" and
+                    tostring(reroll.ornamentId) ~= "410003" and
+                    tostring(reroll.ornamentId) ~= "410004" and
+                    tostring(reroll.ornamentId) ~= "410005" then
+                    print("Unknown reroll found ! : " .. tostring(reroll.ornamentId))
+                    FoundReroll1 = true
+                end
+
+                if tostring(reroll.ornamentId) == "410004" or
+                    tostring(reroll.ornamentId) == "410005" then
+                    local rerollname = "None"
+                    if tostring(reroll.ornamentId) == "410004" then
+                        rerollname = "Legendary"
+                    elseif tostring(reroll.ornamentId) == "410005" then
+                        rerollname = "Rainbow"
+                    end
+                    print("!! REROLL FOUND !! : " .. rerollname)
+                    FoundReroll1 = true
+                end
+            until FoundReroll1
+            print("Script stopped !")
+        end
+    })
+
+local RerollButton = RollerTab:AddButton({
+        Name = "Reroll Awakening",
+        Callback = function()
+            local FoundReroll2 = false
+
+            repeat
+                local args = {
+                    [1] = 400002
+                }
+
+                local reroll = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(args))
+                wait(.1)
+                if tostring(reroll.ornamentId) ~= "410006" and
+                    tostring(reroll.ornamentId) ~= "410007" and
+                    tostring(reroll.ornamentId) ~= "410008" and
+                    tostring(reroll.ornamentId) ~= "410009" and
+                    tostring(reroll.ornamentId) ~= "410010" then
+                    print("Unknown reroll found ! : " .. tostring(reroll.ornamentId))
+                    FoundReroll2 = true
+                end
+
+                if tostring(reroll.ornamentId) == "410009" or
+                    tostring(reroll.ornamentId) == "410010" then
+                    local rerollname = "None"
+                    if tostring(reroll.ornamentId) == "410009" then
+                        rerollname = "Legendary"
+                    elseif tostring(reroll.ornamentId) == "410010" then
+                        rerollname = "Rainbow"
+                    end
+                    print("!! REROLL FOUND !! : " .. rerollname)
+                    FoundReroll2 = true
+                end
+            until FoundReroll2
+            print("Script stopped !")
+        end
+    })
+
+    local RerollButton = RollerTab:AddButton({
+        Name = "Reroll Ornament",
+        Callback = function()
+            local FoundReroll3 = false
+
+            repeat
+                local args = {
+                    [1] = 400003
+                }
+
+                local reroll = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(args))
+                wait(.1)
+                if tostring(reroll.ornamentId) ~= "410011" and
+                    tostring(reroll.ornamentId) ~= "410012" and
+                    tostring(reroll.ornamentId) ~= "410013" and
+                    tostring(reroll.ornamentId) ~= "410014" and
+                    tostring(reroll.ornamentId) ~= "410015" then
+                    print("Unknown reroll found ! : " .. tostring(reroll.ornamentId))
+                    FoundReroll3 = true
+                end
+
+                if tostring(reroll.ornamentId) == "410014" or
+                    tostring(reroll.ornamentId) == "410015" then
+                    local rerollname = "None"
+                    if tostring(reroll.ornamentId) == "410014" then
+                        rerollname = "Legendary"
+                    elseif tostring(reroll.ornamentId) == "410015" then
+                        rerollname = "Rainbow"
+                    end
+                    print("!! REROLL FOUND !! : " .. rerollname)
+                    FoundReroll3 = true
+                end
+            until FoundReroll3
+            print("Script stopped !")
+        end
+    })
+
+local RerollButton = RollerTab:AddButton({
+        Name = "Reroll Trail",
+        Callback = function()
+            local FoundReroll4 = false
+
+            repeat
+                local args = {
+                    [1] = 400004
+                }
+
+                local reroll = game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(args))
+                wait(.1)
+                if tostring(reroll.ornamentId) ~= "410016" and
+                    tostring(reroll.ornamentId) ~= "410017" and
+                    tostring(reroll.ornamentId) ~= "410018" and
+                    tostring(reroll.ornamentId) ~= "410019" and
+                    tostring(reroll.ornamentId) ~= "410020" then
+                    print("Unknown reroll found ! : " .. tostring(reroll.ornamentId))
+                    FoundReroll4 = true
+                end
+
+                if tostring(reroll.ornamentId) == "410019" or
+                    tostring(reroll.ornamentId) == "410020" then
+                    local rerollname = "None"
+                    if tostring(reroll.ornamentId) == "410019" then
+                        rerollname = "Legendary"
+                    elseif tostring(reroll.ornamentId) == "410020" then
+                        rerollname = "Rainbow"
+                    end
+                    print("!! REROLL FOUND !! : " .. rerollname)
+                    FoundReroll = true
+                end
+            until FoundReroll4
+            print("Script stopped !")
+        end
+    })
+
+
+end
