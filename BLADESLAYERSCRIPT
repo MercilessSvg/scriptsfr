@@ -25,6 +25,7 @@ getgenv().Settings = {
             [10016] = false,
          },
 	mespetsequiper = {},
+	Range = 200,
 	AutoFarm = false,
 	WalkToEnemy = false,
 	DamageBoost = false,
@@ -368,7 +369,6 @@ local AutoDungeonToggle =
                                 end
                             end
                         end
-	        	end
-            	end)
-
-   
+                    end
+		end
+            end)
