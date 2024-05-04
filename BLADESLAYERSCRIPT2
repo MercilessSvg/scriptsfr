@@ -390,39 +390,7 @@ AutoRaidTab:AddButton({
             end
         end
     })
-    local gems = {
-    { Name = "Lvl 3 Ruby",     Value = 10008 },
-    { Name = "Lvl 3 Sapphire", Value = 10009 },
-    { Name = "Lvl 3 Emerald",  Value = 10010 },
-    { Name = "Lvl 5 Ruby",     Value = 10011 },
-    { Name = "Lvl 5 Sapphire", Value = 10012 },
-    { Name = "Lvl 5 Emerald",  Value = 10013 },
-    { Name = "Lvl 7 Ruby",     Value = 10014 },
-    { Name = "Lvl 7 Sapphire", Value = 10015 },
-    { Name = "Lvl 7 Emerald",  Value = 10016 }
-}
-local dropdown = AutoBuyTab:AddDropdown({
-    Name = "AutoBuy Gem",
-    Default = gems[1].Value,
-    Options = {},
-    Callback = function(Value)
-        for i, gem in ipairs(gems) do 
-            getgenv().Settings.AutoBuyGems[gem.Value] = gem.Value == Value
-        end
-    end,
-})
-for _, gem in ipairs(gems) do
-    dropdown.Options[gem.Name] = gem.Value
-end
-AutoBuyTab:AddToggle({
-    Name = "AutoBuy Enabled",
-    Default = false,
-    Callback = function(Value)
-        for _, gem in ipairs(gems) do
-            getgenv().Settings.AutoBuyGems[gem.Value] = Value
-        end
-    end,
-})
+
 local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
     -- Teleport the player to the specified dungeon
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(
