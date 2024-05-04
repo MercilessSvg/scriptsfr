@@ -13,6 +13,17 @@ local Window = OrionLib:MakeWindow({
 getgenv().Settings = {
         AutoAtk = false, 
         AutoDungeon = false, 
+        AutoBuyGems = {
+            [10008] = false,
+            [10009] = false,
+            [10010] = false,
+            [10011] = false,
+            [10012] = false,
+            [10013] = false,
+            [10014] = false,
+            [10015] = false,
+            [10016] = false,
+         },
 	mespetsequiper = {},
 	Range = 200,
 	AutoFarm = false,
@@ -33,11 +44,6 @@ getgenv().Settings = {
     })
     local ScriptsTab = Window:MakeTab({
         Name = "Scripts",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
-    })
-local AutoBuyTab = Window:MakeTab({
-        Name = "Shop",
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
     })
@@ -79,44 +85,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseW
 end
         end
     })
-local playerNames = {}
-for _, player in pairs(game.Players:GetPlayers()) do
-    table.insert(playerNames, player.Name)
-end
-PlayerTab:AddDropdown(
-    {
-        Name = "Select Player",
-        Options = playerNames,
-        Callback = function(selectedPlayer)
-            getgenv().Settings.selectedPlayer = selectedPlayer
-        end
-    }
-)
-PlayerTab:AddButton(
-    {
-        Name = "Trade Selected Player",
-        Callback = function()
-            if getgenv().Settings.selectedPlayer then
-                game:GetService("ReplicatedStorage").Remotes.SendTrade:InvokeServer(
-                    game:GetService("Players")[getgenv().Settings.selectedPlayer]
-                )
-            else
-                warn("No player selected.")
-            end
-        end
-    }
-)
-PlayerTab:AddButton(
-    {Name = "Refresh Player List", Callback = function()
-            playerNames = {}
-            for _, player in pairs(game.Players:GetPlayers()) do
-                table.insert(playerNames, player.Name)
-            end
-            PlayerTab:GetElement("Select Player"):UpdateOptions(playerNames)
-            getgenv().Settings.selectedPlayer = nil
-        end
-})
-  
+
 PlayerTab:AddButton({
         Name = "Dupe",
         Callback = function()
@@ -164,7 +133,6 @@ ScriptsTab:AddToggle({
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
     })
-
 
 local a=Window:MakeTab({Name="Roll-Tab",Icon="rbxassetid://4483345998",PremiumOnly=false})local b=a:AddButton({Name="Reroll Mask",Callback=function()local c=false;repeat local d={[1]=400001}local e=game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(d))wait(.1)if tostring(e.ornamentId)~="410001"and tostring(e.ornamentId)~="410002"and tostring(e.ornamentId)~="410003"and tostring(e.ornamentId)~="410004"and tostring(e.ornamentId)~="410005"then print("Unknown reroll found ! : "..tostring(e.ornamentId))c=true end;if tostring(e.ornamentId)=="410004"or tostring(e.ornamentId)=="410005"then local f="None"if tostring(e.ornamentId)=="410004"then f="Legendary"elseif tostring(e.ornamentId)=="410005"then f="Rainbow"end;print("!! REROLL FOUND !! : "..f)c=true end until c;print("Script stopped !")end})local b=a:AddButton({Name="Reroll Awakening",Callback=function()local c=false;repeat local d={[1]=400002}local e=game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(d))wait(.1)if tostring(e.ornamentId)~="410006"and tostring(e.ornamentId)~="410007"and tostring(e.ornamentId)~="410008"and tostring(e.ornamentId)~="410009"and tostring(e.ornamentId)~="410010"then print("Unknown reroll found ! : "..tostring(e.ornamentId))c=true end;if tostring(e.ornamentId)=="410009"or tostring(e.ornamentId)=="410010"then local f="None"if tostring(e.ornamentId)=="410009"then f="Legendary"elseif tostring(e.ornamentId)=="410010"then f="Rainbow"end;print("!! REROLL FOUND !! : "..f)c=true end until c;print("Script stopped !")end})local b=a:AddButton({Name="Reroll Ornament",Callback=function()local c=false;repeat local d={[1]=400003}local e=game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(d))wait(.1)if tostring(e.ornamentId)~="410011"and tostring(e.ornamentId)~="410012"and tostring(e.ornamentId)~="410013"and tostring(e.ornamentId)~="410014"and tostring(e.ornamentId)~="410015"then print("Unknown reroll found ! : "..tostring(e.ornamentId))c=true end;if tostring(e.ornamentId)=="410014"or tostring(e.ornamentId)=="410015"then local f="None"if tostring(e.ornamentId)=="410014"then f="Legendary"elseif tostring(e.ornamentId)=="410015"then f="Rainbow"end;print("!! REROLL FOUND !! : "..f)c=true end until c;print("Script stopped !")end})local b=a:AddButton({Name="Reroll Trail",Callback=function()local c=false;repeat local d={[1]=400004}local e=game:GetService("ReplicatedStorage").Remotes.RerollOrnament:InvokeServer(unpack(d))wait(.1)if tostring(e.ornamentId)~="410016"and tostring(e.ornamentId)~="410017"and tostring(e.ornamentId)~="410018"and tostring(e.ornamentId)~="410019"and tostring(e.ornamentId)~="410020"then print("Unknown reroll found ! : "..tostring(e.ornamentId))c=true end;if tostring(e.ornamentId)=="410019"or tostring(e.ornamentId)=="410020"then local f="None"if tostring(e.ornamentId)=="410019"then f="Legendary"elseif tostring(e.ornamentId)=="410020"then f="Rainbow"end;print("!! REROLL FOUND !! : "..f)c=true end until c;print("Script stopped !")end})
  
@@ -232,9 +200,7 @@ AutoRaidTab:AddButton({
                 restartScript()
             end
         end
-    });
-
-local function TeleportToAndFromDungeon()
+    })
 
 local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
     -- Teleport the player to the specified dungeon
@@ -250,11 +216,10 @@ local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
         }
     )
 end
-
 local AutoDungeonToggle =
     AutoDungeonTab:AddToggle(
     {
-        Name = "Auto-Dungeon",
+        Name = "Auto-Dungeon(FINALLY FIXED!!!)",
         Default = false,
         Callback = function(Value)
             if Value then
