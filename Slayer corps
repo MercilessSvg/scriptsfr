@@ -236,33 +236,20 @@ AutoRaidTab:AddButton({
 
 local function TeleportToAndFromDungeon()
 
-spawn(function()
-    while wait(.5) do
-        if getgenv().Settings then
-            local InDungeon = false
-            for _, v in pairs (game.Workspace:GetChildren()) do
-
-if v: FindFirstChild("Map3") then
-getgenv().Settings.Range = 50
-getgenv().Settings.WalkToEnemy = false
-        
-            local args = ({
-            
-            [1] = {
-                ["mapId"] = 50016
-            }
+local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
+    -- Teleport the player to the specified dungeon
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(
+        {
+            ["mapId"] = dungeonMapId
         }
-
-    game.GetService("ReplicatedStorage").RemotesLocalPlayerTeleport:FireServer(unpack(args))
-
-wait(10)
-getgenv().Settings.Range = 800
-getgenv().Settings.WalkToEnemy = true
+    )
+    wait(returnTime)
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleport"):FireServer(
+        {
+            ["mapId"] = returnMapId
+        }
+    )
 end
-
-if v:FindFirstChild("Tower") then
-getgenv().Settings.Range = 800
-getgenv().Settings.WalkToEnemy = true
 
 local AutoDungeonToggle =
     AutoDungeonTab:AddToggle(
