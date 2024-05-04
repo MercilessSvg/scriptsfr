@@ -672,3 +672,4 @@ local RerollButton = RollerTab:AddButton({
             print("Script stopped !")
         end
     })
+end
