@@ -5,7 +5,7 @@
     end
 local Window = OrionLib:MakeWindow({
         Name = "MercilessHub",
-        HidePremium = false,
+        HidePremium = true,
         SaveConfig = true,
         ConfigFolder = "WendelCfg",
         IntroEnabled = false
@@ -177,12 +177,12 @@ ScriptsTab:AddToggle({
     })
     local FuseGem1Tab = Window:MakeTab({
         Name = "Lvl 10 Dupe",
-        Icon = "rbxassetid://4483345998", PremiumOnly = false
+        Icon = "rbxassetid://4483345998", PremiumOnly = true
     })
 
     local FuseGem2Tab = Window:MakeTab({
         Name = "Lvl 9 Dupe",
-        Icon = "rbxassetid://4483345998", PremiumOnly = false
+        Icon = "rbxassetid://4483345998", PremiumOnly = true
     })
 
     for level = 1, 9 do
