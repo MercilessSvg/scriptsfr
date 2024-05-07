@@ -29,7 +29,6 @@ getgenv().Settings = {
 	AutoFarm = false,
 	WalkToEnemy = false,
 	DamageBoost = false,
-	AutoReborn = false
     }
     local function AutoAtk()
         while G.AutoAtk do
@@ -62,8 +61,14 @@ ScriptsTab:AddToggle({
         end
     end,
 })
-
-
+ScriptsTab:AddToggle({
+    Name = "Damage Boost",
+    Callback = function(state)
+        if state then
+          getgenv().Settings.DamageBoost = not getgenv().Settings.DamageBoost
+        end
+    end,
+})
 --Anti-AFk
 spawn(function()
 for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do
@@ -85,36 +90,6 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseW
 end
         end
     })
-
-PlayerTab:AddToggle({
-    Name = "AutoReborn",
-    Callback = function(state)
-        if state then
-          getgenv().Settings.AutoReborn = not getgenv().Settings.AutoReborn
-	game:GetService("ReplicatedStorage").Remotes.PlayerReborn:FireServer()    
-      end
-    end,
-})
-
-ScriptsTab:AddToggle({
-    Name = "Damage Boost",
-    Callback = function(state)
-        if state then
-          getgenv().Settings.DamageBoost = not getgenv().Settings.DamageBoost
-        end
-    end,
-})
-
-ScriptsTab:AddToggle({
-    Name = "Damage Boost",
-    Callback = function(state)
-        if state then
-          getgenv().Settings.DamageBoost = not getgenv().Settings.DamageBoost
-        end
-    end,
-})
-
-
 local playerNames = {}
 for _, player in pairs(game.Players:GetPlayers()) do
     table.insert(playerNames, player.Name)
@@ -142,9 +117,6 @@ PlayerTab:AddButton(
         end
     }
 )
-
-
-
 PlayerTab:AddButton(
     {Name = "Refresh Player List", Callback = function()
             playerNames = {}
@@ -366,7 +338,6 @@ AutoRaidTab:AddButton({
             loadstring(game:HttpGet('https://raw.githubusercontent.com/xALLQWT/AUTORAID/main/g'))() 
         end
     })
-
     local difficultyDropdown = AutoRaidTab:AddDropdown({
         Name = "Difficulty",
         Options = {"Easy", "Medium", "Hard", "Impossible"},
@@ -504,13 +475,9 @@ local AutoDungeonToggle =
                                 game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args))
                                 game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args))
                             end)
-    		
-		if getgenv().Settings.DamageBoost then
+    		if getgenv().Settings.DamageBoost then
                                 for c, d in pairs(getgenv().Settings.mespetsequiper) do
-                                    local a = { [1] = { 
-				["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 },
-				["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200004 },
-						 }
+                                    local a = { [1] = { ["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
                                     game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a))
                                 end
                             end
