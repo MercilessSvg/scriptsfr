@@ -94,20 +94,14 @@ end
         end
     })
 
-
-   PlayerTab:AddToggle({
-        Name = "Auto Reborn",
-        Default = false,
-        Callback = function(Value)
-            get.genv().Settings.AutoReborn = Value
-            if Value then
-                while get.genv().Settings.AutoReborn do
-game:GetService("ReplicatedStorage").Remotes.PlayerReborn:FireServer() 
-                    wait(1) 
-                end
-            end
-        end,
-    })
+ScriptsTab:AddToggle({
+    Name = "AutoReborn",
+    Callback = function(state)
+          getgenv().Settings.AutoReborn = not getgenv().Settings.AutoReborn
+game:GetService("ReplicatedStorage").Remotes.PlayerReborn:FireServer()    
+    end
+    end,
+})
 
 
 local playerNames = {}
