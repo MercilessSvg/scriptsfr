@@ -107,6 +107,19 @@ end
     })
 
     PlayerTab:AddButton({
+        Name = "Codes",
+        Callback = function()
+            while wait() do
+local args = {}
+for i = 1, 50 do
+    table.insert(args, i)
+end
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GiftCodeReceived"):InvokeServer(unpack(args))
+	    end 
+        end
+    })
+
+    PlayerTab:AddButton({
         Name = "Claim Group Rewards",
         Callback = function()
             while wait() do
