@@ -92,14 +92,6 @@ end
     })
 
     PlayerTab:AddButton({
-        Name = "Claim All Codes",
-        Callback = function()
-            while wait() do
-loadstring(game:HttpGet("https://pastebin.com/raw/gemGBZKu",true))()
-        end
-    })
-
-    PlayerTab:AddButton({
         Name = "Daily Rewards",
         Callback = function()
             while wait() do
