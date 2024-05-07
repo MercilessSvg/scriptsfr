@@ -196,17 +196,25 @@ AutoRaidTab:AddButton({
             G.difficulty = tonumber(option)
         end
     })
-    local AutoRaidToggle = AutoRaidTab:AddToggle({
-        Name = "Auto-Raid",
-        Default = false,
-        Callback = function(Value)
-            if Value then
-                local function restartScript()
-                   loadstring(game:HttpGet("https://raw.githubusercontent.com/AnimeFee/bladeslayerthings/main/autoraid",true))()
-                    restartScript()
+   
+local autoRaidToggleButton = AutoRaidTab:AddToggle({
+    Name = "Auto-Raid",
+    Default = false,
+    Callback = function(Value)
+        if Value then
+            local function loadAndRestartAutoRaidScript()
+                local script, errorMessage = loadstring(game:HttpGet("https://raw.githubusercontent.com/AnimeFee/bladeslayerthings/main/autoraid", true))
+                if not script then
+                    print("Error loading script:", errorMessage)
+                    return
                 end
+                script()
+                loadAndRestartAutoRaidScript()
+            end
+            loadAndRestartAutoRaidScript()
         end
-    })
+    end
+})
 
 local function TeleportToAndFromDungeon(dungeonMapId, returnMapId, returnTime)
     -- Teleport the player to the specified dungeon
