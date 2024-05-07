@@ -1,0 +1,73 @@
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
+local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
+
+local Window = Fluent:CreateWindow({
+    Title = "MercilessHub " .. Fluent.Version,
+    SubTitle = "by Merciless",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(580, 460),
+    Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
+    Theme = "Moon",
+    MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
+})
+
+--Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
+
+local Tabs = {
+    MainScripts = Window:AddTab({ Title = "MainScripts", Icon = "settings" }),
+    
+
+
+    
+    
+}
+
+
+local Tabs = {
+    Player = Window:AddTab({ Title = "Player", Icon = "settings" }),
+    Trading = Window:AddTab({ Title = "Trading", Icon = "settings" })
+
+    
+    
+}
+
+local Tabs = {
+    Shop = Window:AddTab({ Title = "Shop", Icon = "settings" }),
+    
+
+
+    
+    
+}
+
+local Tabs = {
+    AutoRoll = Window:AddTab({ Title = "AutoRoll", Icon = "settings" }),
+    AutoSellSwords = Window:AddTab({ Title = "AutoSell|Fuse", Icon = "settings" }), 
+
+
+    
+    
+}
+
+
+local Tabs = {
+     AutoRaid = Window:AddTab({ Title = "AutoRaid", Icon = "settings" }),
+
+
+    
+    
+}
+
+local Tabs = {
+    AutoDungeon = Window:AddTab({ Title = "AutoDungeon", Icon = "settings" }),
+    
+
+
+    
+    
+}
+
+
+
+
