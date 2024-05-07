@@ -173,9 +173,7 @@ ScriptsTab:AddToggle({
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false
     })
-
-
-    
+    	
 local AutoRaidTab = Window:MakeTab({
         Name = "Auto-Raid",
         Icon = "rbxassetid://4483345998",
