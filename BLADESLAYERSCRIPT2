@@ -29,6 +29,7 @@ getgenv().Settings = {
 	AutoFarm = false,
 	WalkToEnemy = false,
 	DamageBoost = false,
+	AutoReborn = false
     }
     local function AutoAtk()
         while G.AutoAtk do
@@ -61,6 +62,7 @@ ScriptsTab:AddToggle({
         end
     end,
 })
+
 ScriptsTab:AddToggle({
     Name = "Damage Boost",
     Callback = function(state)
@@ -69,6 +71,7 @@ ScriptsTab:AddToggle({
         end
     end,
 })
+
 --Anti-AFk
 spawn(function()
 for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do
@@ -90,6 +93,23 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseW
 end
         end
     })
+
+
+   PlayerTab:AddToggle({
+        Name = "Auto Reborn",
+        Default = false,
+        Callback = function(Value)
+            get.genv().Settings.AutoReborn = Value
+            if Value then
+                while get.genv().Settings.AutoReborn do
+game:GetService("ReplicatedStorage").Remotes.PlayerReborn:FireServer() 
+                    wait(1) 
+                end
+            end
+        end,
+    })
+
+
 local playerNames = {}
 for _, player in pairs(game.Players:GetPlayers()) do
     table.insert(playerNames, player.Name)
@@ -117,6 +137,9 @@ PlayerTab:AddButton(
         end
     }
 )
+
+
+
 PlayerTab:AddButton(
     {Name = "Refresh Player List", Callback = function()
             playerNames = {}
@@ -338,6 +361,7 @@ AutoRaidTab:AddButton({
             loadstring(game:HttpGet('https://raw.githubusercontent.com/xALLQWT/AUTORAID/main/g'))() 
         end
     })
+
     local difficultyDropdown = AutoRaidTab:AddDropdown({
         Name = "Difficulty",
         Options = {"Easy", "Medium", "Hard", "Impossible"},
