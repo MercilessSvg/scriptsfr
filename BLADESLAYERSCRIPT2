@@ -89,9 +89,19 @@ end
 PlayerTab:AddToggle({
     Name = "AutoReborn",
     Callback = function(state)
+        if state then
           getgenv().Settings.AutoReborn = not getgenv().Settings.AutoReborn
-game:GetService("ReplicatedStorage").Remotes.PlayerReborn:FireServer()    
+	game:GetService("ReplicatedStorage").Remotes.PlayerReborn:FireServer()    
       end
+    end,
+})
+
+ScriptsTab:AddToggle({
+    Name = "Damage Boost",
+    Callback = function(state)
+        if state then
+          getgenv().Settings.DamageBoost = not getgenv().Settings.DamageBoost
+        end
     end,
 })
 
@@ -494,7 +504,8 @@ local AutoDungeonToggle =
                                 game:GetService("ReplicatedStorage").Remotes.ClickEnemy:InvokeServer(unpack(args))
                                 game:GetService("ReplicatedStorage").Remotes.PlayerClickAttack:FireServer(unpack(args))
                             end)
-    		if getgenv().Settings.DamageBoost then
+    		
+		if getgenv().Settings.DamageBoost then
                                 for c, d in pairs(getgenv().Settings.mespetsequiper) do
                                     local a = { [1] = { 
 				["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 },
