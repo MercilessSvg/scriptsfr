@@ -69,6 +69,20 @@ ScriptsTab:AddToggle({
         end
     end,
 })
+
+PlayerTab:AddButton({
+    Name = "Redeem All Codes",
+    Callback = function()
+        for i = 1, 29 do
+            local args = {
+                [1] = i
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GiftCodeReceived"):InvokeServer(unpack(args))
+        end
+    end
+})
+
 --Anti-AFk
 spawn(function()
 for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do
