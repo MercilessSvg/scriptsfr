@@ -63,14 +63,6 @@ ScriptsTab:AddToggle({
     end,
 })
 
-ScriptsTab:AddToggle({
-    Name = "Damage Boost",
-    Callback = function(state)
-        if state then
-          getgenv().Settings.DamageBoost = not getgenv().Settings.DamageBoost
-        end
-    end,
-})
 
 --Anti-AFk
 spawn(function()
@@ -94,12 +86,21 @@ end
         end
     })
 
-ScriptsTab:AddToggle({
+PlayerTab:AddToggle({
     Name = "AutoReborn",
     Callback = function(state)
           getgenv().Settings.AutoReborn = not getgenv().Settings.AutoReborn
 game:GetService("ReplicatedStorage").Remotes.PlayerReborn:FireServer()    
-    end
+      end
+    end,
+})
+
+ScriptsTab:AddToggle({
+    Name = "Damage Boost",
+    Callback = function(state)
+        if state then
+          getgenv().Settings.DamageBoost = not getgenv().Settings.DamageBoost
+        end
     end,
 })
 
