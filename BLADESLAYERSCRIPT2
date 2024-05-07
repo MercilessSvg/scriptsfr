@@ -82,7 +82,8 @@ VirtualUser:CaptureController()
 VirtualUser:ClickButton2(Vector2.new())
 end
 end)
-    ScriptsTab:AddButton({
+ 
+   ScriptsTab:AddButton({
         Name = "Auto Fuse Swords",
         Callback = function()
             while wait() do
@@ -90,53 +91,6 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FuseW
 end
         end
     })
-
-PlayerTab:AddButton({
-    Name = "Daily Rewards",
-    Callback = function()
-        for x = 1, 7 do
-            local args = table.pack(x)
-            local success, errorMessage = pcall(function()
-                game:GetService("ReplicatedStorage").Remotes.ClaimSevenLoginReward:FireServer(unpack(args))
-            end)
-            if not success then
-                warn("Error claiming daily reward: ".. errorMessage)
-            end
-            task.wait()
-        end
-    end
-})
-
-PlayerTab:AddButton({
-    Name = "Codes",
-    Callback = function()
-        local args = table.pack((function() for i = 1, 50 do return i end end)())
-        local success, errorMessage = pcall(function()
-            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GiftCodeReceived"):InvokeServer(unpack(args))
-        end)
-        if not success then
-            warn("Error invoking remote function: ".. errorMessage)
-        end
-    end
-})
-
-PlayerTab:AddButton({
-    Name = "Claim Group Rewards",
-    Callback = function()
-        while true do
-            local success, errorMessage = pcall(function()
-                game:GetService("ReplicatedStorage").Remotes.ClaimGroupReward:InvokeServer()
-            end)
-            if not success then
-                warn("Error claiming group reward: ".. errorMessage)
-                break -- stop the loop if an error occurs
-            end
-            wait(1) -- add a 1-second delay between invocations
-        end
-    end
-})
-
-
 
 local playerNames = {}
 for _, player in pairs(game.Players:GetPlayers()) do
