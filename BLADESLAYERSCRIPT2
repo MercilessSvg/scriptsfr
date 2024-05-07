@@ -61,6 +61,7 @@ ScriptsTab:AddToggle({
         end
     end,
 })
+
 ScriptsTab:AddToggle({
     Name = "Damage Boost",
     Callback = function(state)
@@ -173,10 +174,7 @@ ScriptsTab:AddToggle({
         PremiumOnly = false
     })
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/AnimeFee/bladeslayerthings/main/gem%20dupe",true))()
 
-loadstring(game:HttpGet("https://pastebin.com/raw/9GTqgi8h",true))()
- 
     
 local AutoRaidTab = Window:MakeTab({
         Name = "Auto-Raid",
