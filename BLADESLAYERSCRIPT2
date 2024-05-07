@@ -91,38 +91,6 @@ end
         end
     })
 
-    PlayerTab:AddButton({
-        Name = "Claim All Codes",
-        Callback = function()
-            while wait() do
-loadstring(game:HttpGet("https://pastebin.com/raw/gemGBZKu",true))()
-        end
-    })
-
-    PlayerTab:AddButton({
-        Name = "Daily Rewards",
-        Callback = function()
-            while wait() do
- for x = 1, 7 do
-        local args = {
-            [1] = x
-        }
-
-        game:GetService("ReplicatedStorage").Remotes.ClaimSevenLoginReward:FireServer(unpack(args))
-        task.wait()
-    end 
-        end
-    })
-
-    PlayerTab:AddButton({
-        Name = "Claim Group Rewards",
-        Callback = function()
-            while wait() do
-game:GetService("ReplicatedStorage").Remotes.ClaimGroupReward:InvokeServer()
-        end
-    })
-
-
 
 local playerNames = {}
 for _, player in pairs(game.Players:GetPlayers()) do
@@ -519,3 +487,43 @@ local AutoDungeonToggle =
                     end
 		end
             end)
+
+-- Define a function to load and execute the script from pastebin
+local function claimAllCodes()
+    loadstring(game:HttpGet("https://pastebin.com/raw/gemGBZKu", true))()
+end
+
+-- Define a function to claim daily rewards
+local function claimDailyRewards()
+    for x = 1, 7 do
+        local args = {
+            [1] = x
+        }
+
+        -- Fire the remote function to claim the daily reward for the specified day
+        game:GetService("ReplicatedStorage").Remotes.ClaimSevenLoginReward:FireServer(unpack(args))
+        task.wait() -- Wait for a frame before claiming the next reward
+    end
+end
+
+-- Define a function to claim group rewards
+local function claimGroupRewards()
+    game:GetService("ReplicatedStorage").Remotes.ClaimGroupReward:InvokeServer()
+end
+
+-- Add buttons to the player tab
+PlayerTab:AddButton({
+    Name = "Claim All Codes",
+    Callback = claimAllCodes
+})
+
+PlayerTab:AddButton({
+    Name = "Daily Rewards",
+    Callback = claimDailyRewards
+})
+
+PlayerTab:AddButton({
+    Name = "Claim Group Rewards",
+    Callback = claimGroupRewards
+})
+
