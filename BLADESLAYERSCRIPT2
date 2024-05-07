@@ -486,3 +486,31 @@ local AutoDungeonToggle =
 		end
             end)
 
+PlayerTab:AddButton({
+    Name = "Claim All Codes",
+    Callback = function()
+        local codeIndices = table.pack({1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29})
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GiftCodeReceived"):InvokeServer(unpack(codeIndices))
+    end
+})
+
+    PlayerTab:AddButton({
+        Name = "Daily Rewards",
+        Callback = function()
+            while wait() do
+ for x = 1, 7 do
+        local args = {
+            [1] = x
+        }
+        game:GetService("ReplicatedStorage").Remotes.ClaimSevenLoginReward:FireServer(unpack(args))
+    end 
+        end
+    })
+
+ PlayerTab:AddButton({
+        Name = "Claim Group Rewards",
+        Callback = function()
+            while wait() do
+game:GetService("ReplicatedStorage").Remotes.ClaimGroupReward:InvokeServer()
+        end
+    }) 
