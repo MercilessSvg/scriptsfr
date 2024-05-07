@@ -477,7 +477,10 @@ local AutoDungeonToggle =
                             end)
     		if getgenv().Settings.DamageBoost then
                                 for c, d in pairs(getgenv().Settings.mespetsequiper) do
-                                    local a = { [1] = { ["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 } }
+                                    local a = { [1] = { 
+				["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200003 },
+				["heroGuid"] = tostring(d), ["harmIndex"] = 1, ["isSkill"] = false, ["skillId"] = 200004 },
+						 }
                                     game:GetService("ReplicatedStorage").Remotes.HeroSkillHarm:FireServer(unpack(a))
                                 end
                             end
